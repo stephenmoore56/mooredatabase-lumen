@@ -1,3 +1,7 @@
+## mooredatabase-lumen
+
+This project is a JSON API site intended for eventual use by the mooredatabase-laravel project.
+
 ## Lumen PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
