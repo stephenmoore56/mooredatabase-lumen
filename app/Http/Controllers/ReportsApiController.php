@@ -137,6 +137,27 @@ class ReportsApiController extends BaseController
     }
 
     /**
+     * List months for species
+     * @access  public
+     * @param  speciesId  int
+     * @return Response
+     */
+    public static function sightingsByMonth($speciesId)
+    {
+        try {
+            $cacheKey = __METHOD__ . $speciesId;
+            $results  = Cache::get($cacheKey);
+            if (!$results) {
+                $results = DB::select('CALL proc_listMonthsForSpecies(?);', [$speciesId]);
+                Cache::forever($cacheKey, $results);
+            }
+            return response()->json($results, 200, [], JSON_NUMERIC_CHECK);
+        } catch (Exception $e) {
+            return response()->json([['errors' => $e->getMessage()]], 500);
+        }
+    }
+
+    /**
      * List species by order
      * @access  public
      * @return Response
@@ -319,22 +340,6 @@ class ReportsApiController extends BaseController
     }
 
     /**
-     * lookup birds; for sightings
-     * @access  public
-     * @return Response
-     */
-    public static function birdLookup()
-    {
-        try {
-            $query   = Input::get('query');
-            $results = DB::select('CALL proc_birdLookup(?);', [$query]);
-            return response()->json($results, 200, [], JSON_NUMERIC_CHECK);
-        } catch (Exception $e) {
-            return response()->json([['errors' => $e->getMessage()]], 500);
-        }
-    }
-
-    /**
      * List species and trips by location
      * @access  public
      * @return Response
@@ -364,6 +369,44 @@ class ReportsApiController extends BaseController
             $results = Cache::get(__METHOD__);
             if (!$results) {
                 $results = DB::select('CALL proc_listSpeciesByCounty();');
+                Cache::forever(__METHOD__, $results);
+            }
+            return response()->json($results, 200, [], JSON_NUMERIC_CHECK);
+        } catch (Exception $e) {
+            return response()->json([['errors' => $e->getMessage()]], 500);
+        }
+    }
+
+    /**
+     * List species by month for ducks and warblers
+     * @access  public
+     * @return Response
+     */
+    public static function twoSpeciesByMonth()
+    {
+        try {
+            $results = Cache::get(__METHOD__);
+            if (!$results) {
+                $results = DB::select('CALL proc_listTwoSpeciesByMonth();');
+                Cache::forever(__METHOD__, $results);
+            }
+            return response()->json($results, 200, [], JSON_NUMERIC_CHECK);
+        } catch (Exception $e) {
+            return response()->json([['errors' => $e->getMessage()]], 500);
+        }
+    }
+
+    /**
+     * Monthly average and record temperatures
+     * @access  public
+     * @return Response
+     */
+    public static function monthlyTemps()
+    {
+        try {
+            $results = Cache::get(__METHOD__);
+            if (!$results) {
+                $results = DB::select('CALL proc_listMonthlyAverages();');
                 Cache::forever(__METHOD__, $results);
             }
             return response()->json($results, 200, [], JSON_NUMERIC_CHECK);

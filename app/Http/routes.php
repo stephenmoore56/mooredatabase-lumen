@@ -28,3 +28,6 @@ $app->get('/api/reports/listSpeciesIds', 'ReportsApiController@listSpeciesIds');
 $app->get('/api/reports/listLocationIds', 'ReportsApiController@listLocationIds');
 $app->get('/api/reports/speciesForLocation/{locationId}', 'ReportsApiController@speciesForLocation');
 $app->get('/api/reports/locationDetail/{locationId}', 'ReportsApiController@locationDetail');
+$app->get('/api/reports/twoSpeciesByMonth', 'ReportsApiController@twoSpeciesByMonth');
+$app->get('/api/reports/monthlyTemps', 'ReportsApiController@monthlyTemps');
+$app->get('/api/reports/sightingsByMonth/{speciesId}', 'ReportsApiController@sightingsByMonth');

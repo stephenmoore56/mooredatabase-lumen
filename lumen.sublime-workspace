@@ -61,10 +61,19 @@
 	},
 	"expanded_folders":
 	[
-		"/var/www/html/mooredatabase-lumen"
+		"/var/www/html/mooredatabase-lumen",
+		"/var/www/html/mooredatabase-lumen/app",
+		"/var/www/html/mooredatabase-lumen/app/Http",
+		"/var/www/html/mooredatabase-lumen/app/Http/Controllers",
+		"/var/www/html/mooredatabase-lumen/resources/views",
+		"/var/www/html/mooredatabase-lumen/storage",
+		"/var/www/html/mooredatabase-lumen/tests"
 	],
 	"file_history":
 	[
+		"/var/www/html/mooredatabase-lumen/app/Http/Controllers/ReportsApiController.php",
+		"/var/www/html/mooredatabase-lumen/tests/json_api_spec.js",
+		"/var/www/html/mooredatabase-lumen/app/Http/routes.php",
 		"/var/www/html/mooredatabase-laravel/public/templates/static-content/index.html",
 		"/var/www/html/mooredatabase-laravel/gulp.config.js",
 		"/var/www/html/mooredatabase-laravel/gulpfile.js",
