@@ -71,6 +71,18 @@ frisby.create('Species By Year JSON endpoint')
     })
     .toss();
 
+frisby.create('Species For Month JSON endpoint; invalid month')
+    .get(baseURL + '/api/reports/speciesForMonth/14')
+    .expectStatus(404)
+    .expectHeader('Content-Type', 'application/json')
+    .expectJSONTypes('?', {
+        errors: String
+    })
+    .expectJSON('?', {
+        errors: "404 Not Found"
+    })
+    .toss();
+
 frisby.create('Species For Month JSON endpoint')
     .get(baseURL + '/api/reports/speciesForMonth/4')
     .expectStatus(200)
@@ -87,6 +99,18 @@ frisby.create('Species For Month JSON endpoint')
         sightings: Number,
         last_seen: String,
         monthName: String
+    })
+    .toss();
+
+frisby.create('Species For Order JSON endpoint; invalid order ID')
+    .get(baseURL + '/api/reports/speciesForOrder/9999')
+    .expectStatus(404)
+    .expectHeader('Content-Type', 'application/json')
+    .expectJSONTypes('?', {
+        errors: String
+    })
+    .expectJSON('?', {
+        errors: "404 Not Found"
     })
     .toss();
 
@@ -211,7 +235,8 @@ frisby.create('Search All using string and all orders')
         subfamily: String,
         sightings: Number,
         last_seen: function(val) {
-            expect(val).toBeTypeOrNull(String);
+            expect(val)
+                .toBeTypeOrNull(String);
         }
     })
     .toss();
@@ -229,7 +254,8 @@ frisby.create('Search All using string and order')
         subfamily: String,
         sightings: Number,
         last_seen: function(val) {
-            expect(val).toBeTypeOrNull(String);
+            expect(val)
+                .toBeTypeOrNull(String);
         }
     })
     .toss();
@@ -247,8 +273,21 @@ frisby.create('Search All using no string and all orders')
         subfamily: String,
         sightings: Number,
         last_seen: function(val) {
-            expect(val).toBeTypeOrNull(String);
+            expect(val)
+                .toBeTypeOrNull(String);
         }
+    })
+    .toss();
+
+frisby.create('Species Detail JSON endpoint; invalid species ID')
+    .get(baseURL + '/api/reports/speciesDetail/9999')
+    .expectStatus(404)
+    .expectHeader('Content-Type', 'application/json')
+    .expectJSONTypes('?', {
+        errors: String
+    })
+    .expectJSON('?', {
+        errors: "404 Not Found"
     })
     .toss();
 
@@ -271,8 +310,44 @@ frisby.create('Species Detail JSON endpoint')
     })
     .toss();
 
+frisby.create('Months For Species JSON endpoint; invalid species ID')
+    .get(baseURL + '/api/reports/monthsForSpecies/9999')
+    .expectStatus(404)
+    .expectHeader('Content-Type', 'application/json')
+    .expectJSONTypes('?', {
+        errors: String
+    })
+    .expectJSON('?', {
+        errors: "404 Not Found"
+    })
+    .toss();
+
 frisby.create('Months For Species JSON endpoint')
     .get(baseURL + '/api/reports/monthsForSpecies/992')
+    .expectStatus(200)
+    .expectHeader('Content-Type', 'application/json')
+    .expectJSONTypes('*', {
+        common_name: String,
+        monthNumber: Number,
+        monthName: String,
+        sightingCount: Number
+    })
+    .toss();
+
+frisby.create('Sightings By Month JSON endpoint; invalid species ID')
+    .get(baseURL + '/api/reports/sightingsByMonth/9999')
+    .expectStatus(404)
+    .expectHeader('Content-Type', 'application/json')
+    .expectJSONTypes('?', {
+        errors: String
+    })
+    .expectJSON('?', {
+        errors: "404 Not Found"
+    })
+    .toss();
+
+frisby.create('Sightings By Month JSON endpoint')
+    .get(baseURL + '/api/reports/sightingsByMonth/992')
     .expectStatus(200)
     .expectHeader('Content-Type', 'application/json')
     .expectJSONTypes('*', {
@@ -310,6 +385,18 @@ frisby.create('List Location Ids JSON endpoint')
     })
     .toss();
 
+frisby.create('Species For Location JSON endpoint; invalid location ID')
+    .get(baseURL + '/api/reports/speciesForLocation/9999')
+    .expectStatus(404)
+    .expectHeader('Content-Type', 'application/json')
+    .expectJSONTypes('?', {
+        errors: String
+    })
+    .expectJSON('?', {
+        errors: "404 Not Found"
+    })
+    .toss();
+
 frisby.create('Species For Location JSON endpoint')
     .get(baseURL + '/api/reports/speciesForLocation/14')
     .expectStatus(200)
@@ -323,6 +410,18 @@ frisby.create('Species For Location JSON endpoint')
         subfamily: String,
         sightings: Number,
         last_seen: String
+    })
+    .toss();
+
+frisby.create('Location detail JSON endpoint; invalid species ID')
+    .get(baseURL + '/api/reports/locationDetail/9999')
+    .expectStatus(404)
+    .expectHeader('Content-Type', 'application/json')
+    .expectJSONTypes('?', {
+        errors: String
+    })
+    .expectJSON('?', {
+        errors: "404 Not Found"
     })
     .toss();
 

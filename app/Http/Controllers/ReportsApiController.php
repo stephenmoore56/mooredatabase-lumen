@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Cache;
 use DB;
-use Laravel\Lumen\Routing\Controller as BaseController;
+use Symfony\Component\HttpFoundation\Response as Response;
 
 /**
  * Methods that serve JSON data for reports
@@ -18,8 +18,9 @@ use Laravel\Lumen\Routing\Controller as BaseController;
  * ReportsApiController class
  *
  */
-class ReportsApiController extends BaseController
+class ReportsApiController extends Controller
 {
+    const HTTP_NOT_FOUND_MESSAGE = "404 Not Found";
     /**
      * Clear memcached; mainly for testing
      * @access  public
@@ -29,9 +30,9 @@ class ReportsApiController extends BaseController
     {
         try {
             Cache::flush();
-            return response()->json([['message' => 'Cache flushed.']], 200, []);
+            return response()->json([['message' => 'Cache flushed.']], Response::HTTP_OK, []);
         } catch (Exception $e) {
-            return response()->json([['errors' => $e->getMessage()]], 500);
+            return response()->json([['errors' => $e->getMessage()]], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -48,9 +49,9 @@ class ReportsApiController extends BaseController
                 $results = DB::select('CALL proc_listSpeciesByMonth();');
                 Cache::forever(__METHOD__, $results);
             }
-            return response()->json($results, 200, [], JSON_NUMERIC_CHECK);
+            return response()->json($results, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
-            return response()->json([['errors' => $e->getMessage()]], 500);
+            return response()->json([['errors' => $e->getMessage()]], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -67,9 +68,9 @@ class ReportsApiController extends BaseController
                 $results = DB::select('CALL proc_listSpeciesByYear();');
                 Cache::forever(__METHOD__, $results);
             }
-            return response()->json($results, 200, [], JSON_NUMERIC_CHECK);
+            return response()->json($results, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
-            return response()->json([['errors' => $e->getMessage()]], 500);
+            return response()->json([['errors' => $e->getMessage()]], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -86,11 +87,14 @@ class ReportsApiController extends BaseController
             $results  = Cache::get($cacheKey);
             if (!$results) {
                 $results = DB::select('CALL proc_listSpeciesForMonth(?);', [$monthNumber]);
+                if (!count($results)) {
+                    return response()->json([['errors' => self::HTTP_NOT_FOUND_MESSAGE]], 404);
+                }
                 Cache::forever($cacheKey, $results);
             }
-            return response()->json($results, 200, [], JSON_NUMERIC_CHECK);
+            return response()->json($results, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
-            return response()->json([['errors' => $e->getMessage()]], 500);
+            return response()->json([['errors' => $e->getMessage()]], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -107,11 +111,14 @@ class ReportsApiController extends BaseController
             $results  = Cache::get($cacheKey);
             if (!$results) {
                 $results = DB::select('CALL proc_getSpecies2(?);', [$speciesId]);
+                if (!count($results)) {
+                    return response()->json([['errors' => self::HTTP_NOT_FOUND_MESSAGE]], 404);
+                }
                 Cache::forever($cacheKey, $results);
             }
-            return response()->json($results, 200, [], JSON_NUMERIC_CHECK);
+            return response()->json($results, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
-            return response()->json([['errors' => $e->getMessage()]], 500);
+            return response()->json([['errors' => $e->getMessage()]], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -128,11 +135,14 @@ class ReportsApiController extends BaseController
             $results  = Cache::get($cacheKey);
             if (!$results) {
                 $results = DB::select('CALL proc_listMonthsForSpecies2(?);', [$speciesId]);
+                if ($results[0]->common_name == '') {
+                    return response()->json([['errors' => self::HTTP_NOT_FOUND_MESSAGE]], 404);
+                }
                 Cache::forever($cacheKey, $results);
             }
-            return response()->json($results, 200, [], JSON_NUMERIC_CHECK);
+            return response()->json($results, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
-            return response()->json([['errors' => $e->getMessage()]], 500);
+            return response()->json([['errors' => $e->getMessage()]], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -149,11 +159,14 @@ class ReportsApiController extends BaseController
             $results  = Cache::get($cacheKey);
             if (!$results) {
                 $results = DB::select('CALL proc_listMonthsForSpecies(?);', [$speciesId]);
+                if (!count($results)) {
+                    return response()->json([['errors' => self::HTTP_NOT_FOUND_MESSAGE]], 404);
+                }
                 Cache::forever($cacheKey, $results);
             }
-            return response()->json($results, 200, [], JSON_NUMERIC_CHECK);
+            return response()->json($results, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
-            return response()->json([['errors' => $e->getMessage()]], 500);
+            return response()->json([['errors' => $e->getMessage()]], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -170,9 +183,9 @@ class ReportsApiController extends BaseController
                 $results = DB::select('CALL proc_listSpeciesByOrder();');
                 Cache::forever(__METHOD__, $results);
             }
-            return response()->json($results, 200, [], JSON_NUMERIC_CHECK);
+            return response()->json($results, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
-            return response()->json([['errors' => $e->getMessage()]], 500);
+            return response()->json([['errors' => $e->getMessage()]], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -189,11 +202,14 @@ class ReportsApiController extends BaseController
             $results  = Cache::get($cacheKey);
             if (!$results) {
                 $results = DB::select('CALL proc_listSpeciesForOrder(?);', [$orderId]);
+                if (!count($results)) {
+                    return response()->json([['errors' => self::HTTP_NOT_FOUND_MESSAGE]], 404);
+                }
                 Cache::forever($cacheKey, $results);
             }
-            return response()->json($results, 200, [], JSON_NUMERIC_CHECK);
+            return response()->json($results, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
-            return response()->json([['errors' => $e->getMessage()]], 500);
+            return response()->json([['errors' => $e->getMessage()]], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -211,9 +227,9 @@ class ReportsApiController extends BaseController
                 $results = DB::select('CALL proc_listSpeciesAll();');
                 Cache::forever($cacheKey, $results);
             }
-            return response()->json($results, 200, [], JSON_NUMERIC_CHECK);
+            return response()->json($results, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
-            return response()->json([['errors' => $e->getMessage()]], 500);
+            return response()->json([['errors' => $e->getMessage()]], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -231,9 +247,9 @@ class ReportsApiController extends BaseController
                 $results = DB::select('CALL proc_listOrders();');
                 Cache::forever($cacheKey, $results);
             }
-            return response()->json($results, 200, [], JSON_NUMERIC_CHECK);
+            return response()->json($results, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
-            return response()->json([['errors' => $e->getMessage()]], 500);
+            return response()->json([['errors' => $e->getMessage()]], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -251,9 +267,9 @@ class ReportsApiController extends BaseController
                 $results = DB::select('CALL proc_listOrderIds();');
                 Cache::forever($cacheKey, $results);
             }
-            return response()->json($results, 200, [], JSON_NUMERIC_CHECK);
+            return response()->json($results, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
-            return response()->json([['errors' => $e->getMessage()]], 500);
+            return response()->json([['errors' => $e->getMessage()]], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -271,9 +287,9 @@ class ReportsApiController extends BaseController
                 $results = DB::select('CALL proc_listSpeciesIds();');
                 Cache::forever($cacheKey, $results);
             }
-            return response()->json($results, 200, [], JSON_NUMERIC_CHECK);
+            return response()->json($results, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
-            return response()->json([['errors' => $e->getMessage()]], 500);
+            return response()->json([['errors' => $e->getMessage()]], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -291,9 +307,9 @@ class ReportsApiController extends BaseController
                 $results = DB::select('CALL proc_listLocationIds();');
                 Cache::forever($cacheKey, $results);
             }
-            return response()->json($results, 200, [], JSON_NUMERIC_CHECK);
+            return response()->json($results, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
-            return response()->json([['errors' => $e->getMessage()]], 500);
+            return response()->json([['errors' => $e->getMessage()]], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -311,9 +327,9 @@ class ReportsApiController extends BaseController
                 $results = DB::select('CALL proc_listOrdersAll();');
                 Cache::forever($cacheKey, $results);
             }
-            return response()->json($results, 200, [], JSON_NUMERIC_CHECK);
+            return response()->json($results, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
-            return response()->json([['errors' => $e->getMessage()]], 500);
+            return response()->json([['errors' => $e->getMessage()]], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -333,9 +349,9 @@ class ReportsApiController extends BaseController
                 $results = DB::select('CALL proc_searchAll(?,?);', [$searchString, $orderId]);
                 Cache::forever($cacheKey, $results);
             }
-            return response()->json($results, 200, [], JSON_NUMERIC_CHECK);
+            return response()->json($results, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
-            return response()->json([['errors' => $e->getMessage()]], 500);
+            return response()->json([['errors' => $e->getMessage()]], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -352,9 +368,9 @@ class ReportsApiController extends BaseController
                 $results = DB::select('CALL proc_listLocations2();');
                 Cache::forever(__METHOD__, $results);
             }
-            return response()->json($results, 200, [], JSON_NUMERIC_CHECK);
+            return response()->json($results, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
-            return response()->json([['errors' => $e->getMessage()]], 500);
+            return response()->json([['errors' => $e->getMessage()]], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -371,9 +387,9 @@ class ReportsApiController extends BaseController
                 $results = DB::select('CALL proc_listSpeciesByCounty();');
                 Cache::forever(__METHOD__, $results);
             }
-            return response()->json($results, 200, [], JSON_NUMERIC_CHECK);
+            return response()->json($results, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
-            return response()->json([['errors' => $e->getMessage()]], 500);
+            return response()->json([['errors' => $e->getMessage()]], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -390,9 +406,9 @@ class ReportsApiController extends BaseController
                 $results = DB::select('CALL proc_listTwoSpeciesByMonth();');
                 Cache::forever(__METHOD__, $results);
             }
-            return response()->json($results, 200, [], JSON_NUMERIC_CHECK);
+            return response()->json($results, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
-            return response()->json([['errors' => $e->getMessage()]], 500);
+            return response()->json([['errors' => $e->getMessage()]], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -409,9 +425,9 @@ class ReportsApiController extends BaseController
                 $results = DB::select('CALL proc_listMonthlyAverages();');
                 Cache::forever(__METHOD__, $results);
             }
-            return response()->json($results, 200, [], JSON_NUMERIC_CHECK);
+            return response()->json($results, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
-            return response()->json([['errors' => $e->getMessage()]], 500);
+            return response()->json([['errors' => $e->getMessage()]], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -428,11 +444,14 @@ class ReportsApiController extends BaseController
             $results  = Cache::get($cacheKey);
             if (!$results) {
                 $results = DB::select('CALL proc_listSightingsForLocation2(?);', [$locationId]);
+                if (!count($results)) {
+                    return response()->json([['errors' => self::HTTP_NOT_FOUND_MESSAGE]], 404);
+                }
                 Cache::forever($cacheKey, $results);
             }
-            return response()->json($results, 200, [], JSON_NUMERIC_CHECK);
+            return response()->json($results, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
-            return response()->json([['errors' => $e->getMessage()]], 500);
+            return response()->json([['errors' => $e->getMessage()]], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -449,11 +468,14 @@ class ReportsApiController extends BaseController
             $results  = Cache::get($cacheKey);
             if (!$results) {
                 $results = DB::select('CALL proc_getLocation2(?);', [$locationId]);
+                if (!count($results)) {
+                    return response()->json([['errors' => self::HTTP_NOT_FOUND_MESSAGE]], 404);
+                }
                 Cache::forever($cacheKey, $results);
             }
-            return response()->json($results, 200, [], JSON_NUMERIC_CHECK);
+            return response()->json($results, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
-            return response()->json([['errors' => $e->getMessage()]], 500);
+            return response()->json([['errors' => $e->getMessage()]], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
