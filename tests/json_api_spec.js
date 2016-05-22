@@ -73,13 +73,13 @@ frisby.create('Species By Year JSON endpoint')
 
 frisby.create('Species For Month JSON endpoint; invalid month')
     .get(baseURL + '/api/reports/speciesForMonth/14')
-    .expectStatus(404)
+    .expectStatus(400)
     .expectHeader('Content-Type', 'application/json')
     .expectJSONTypes('?', {
         errors: String
     })
     .expectJSON('?', {
-        errors: "404 Not Found"
+        errors: "400 Bad Request"
     })
     .toss();
 
@@ -234,7 +234,7 @@ frisby.create('Search All using string and all orders')
         family: String,
         subfamily: String,
         sightings: Number,
-        last_seen: function(val) {
+        last_seen: function (val) {
             expect(val)
                 .toBeTypeOrNull(String);
         }
@@ -253,7 +253,7 @@ frisby.create('Search All using string and order')
         family: String,
         subfamily: String,
         sightings: Number,
-        last_seen: function(val) {
+        last_seen: function (val) {
             expect(val)
                 .toBeTypeOrNull(String);
         }
@@ -272,7 +272,7 @@ frisby.create('Search All using no string and all orders')
         family: String,
         subfamily: String,
         sightings: Number,
-        last_seen: function(val) {
+        last_seen: function (val) {
             expect(val)
                 .toBeTypeOrNull(String);
         }

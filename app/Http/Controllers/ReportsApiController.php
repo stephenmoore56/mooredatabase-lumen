@@ -18,16 +18,17 @@ use Symfony\Component\HttpFoundation\Response as Response;
  * ReportsApiController class
  *
  */
-class ReportsApiController extends Controller
-{
+class ReportsApiController extends Controller {
+    // messages for HTTP error status codes
     const HTTP_NOT_FOUND_MESSAGE = "404 Not Found";
+    const HTTP_BAD_REQUEST_MESSAGE = "400 Bad Request";
+
     /**
      * Clear memcached; mainly for testing
      * @access  public
      * @return Response
      */
-    public static function clearCache()
-    {
+    public static function clearCache() {
         try {
             Cache::flush();
             return response()->json([['message' => 'Cache flushed.']], Response::HTTP_OK, []);
@@ -41,8 +42,7 @@ class ReportsApiController extends Controller
      * @access  public
      * @return Response
      */
-    public static function speciesByMonth()
-    {
+    public static function speciesByMonth() {
         try {
             $results = Cache::get(__METHOD__);
             if (!$results) {
@@ -60,8 +60,7 @@ class ReportsApiController extends Controller
      * @access  public
      * @return Response
      */
-    public static function speciesByYear()
-    {
+    public static function speciesByYear() {
         try {
             $results = Cache::get(__METHOD__);
             if (!$results) {
@@ -80,15 +79,17 @@ class ReportsApiController extends Controller
      * @param  monthNumber int
      * @return Response
      */
-    public static function speciesForMonth($monthNumber)
-    {
+    public static function speciesForMonth($monthNumber) {
         try {
             $cacheKey = __METHOD__ . $monthNumber;
-            $results  = Cache::get($cacheKey);
+            $results = Cache::get($cacheKey);
             if (!$results) {
+                if ($monthNumber > 12 || $monthNumber < 1) {
+                    return response()->json([['errors' => self::HTTP_BAD_REQUEST_MESSAGE]], Response::HTTP_BAD_REQUEST);
+                }
                 $results = DB::select('CALL proc_listSpeciesForMonth(?);', [$monthNumber]);
                 if (!count($results)) {
-                    return response()->json([['errors' => self::HTTP_NOT_FOUND_MESSAGE]], 404);
+                    return response()->json([['errors' => self::HTTP_NOT_FOUND_MESSAGE]], Response::HTTP_NOT_FOUND);
                 }
                 Cache::forever($cacheKey, $results);
             }
@@ -104,11 +105,10 @@ class ReportsApiController extends Controller
      * @param  speciesId  int
      * @return Response
      */
-    public static function speciesDetail($speciesId)
-    {
+    public function speciesDetail($speciesId) {
         try {
             $cacheKey = __METHOD__ . $speciesId;
-            $results  = Cache::get($cacheKey);
+            $results = Cache::get($cacheKey);
             if (!$results) {
                 $results = DB::select('CALL proc_getSpecies2(?);', [$speciesId]);
                 if (!count($results)) {
@@ -128,11 +128,10 @@ class ReportsApiController extends Controller
      * @param  speciesId  int
      * @return Response
      */
-    public static function monthsForSpecies($speciesId)
-    {
+    public function monthsForSpecies($speciesId) {
         try {
             $cacheKey = __METHOD__ . $speciesId;
-            $results  = Cache::get($cacheKey);
+            $results = Cache::get($cacheKey);
             if (!$results) {
                 $results = DB::select('CALL proc_listMonthsForSpecies2(?);', [$speciesId]);
                 if ($results[0]->common_name == '') {
@@ -152,11 +151,10 @@ class ReportsApiController extends Controller
      * @param  speciesId  int
      * @return Response
      */
-    public static function sightingsByMonth($speciesId)
-    {
+    public function sightingsByMonth($speciesId) {
         try {
             $cacheKey = __METHOD__ . $speciesId;
-            $results  = Cache::get($cacheKey);
+            $results = Cache::get($cacheKey);
             if (!$results) {
                 $results = DB::select('CALL proc_listMonthsForSpecies(?);', [$speciesId]);
                 if (!count($results)) {
@@ -175,8 +173,7 @@ class ReportsApiController extends Controller
      * @access  public
      * @return Response
      */
-    public static function speciesByOrder()
-    {
+    public function speciesByOrder() {
         try {
             $results = Cache::get(__METHOD__);
             if (!$results) {
@@ -195,11 +192,10 @@ class ReportsApiController extends Controller
      * @param  orderId    int
      * @return Response
      */
-    public static function speciesForOrder($orderId)
-    {
+    public function speciesForOrder($orderId) {
         try {
             $cacheKey = __METHOD__ . $orderId;
-            $results  = Cache::get($cacheKey);
+            $results = Cache::get($cacheKey);
             if (!$results) {
                 $results = DB::select('CALL proc_listSpeciesForOrder(?);', [$orderId]);
                 if (!count($results)) {
@@ -218,11 +214,10 @@ class ReportsApiController extends Controller
      * @access  public
      * @return Response
      */
-    public static function speciesAll()
-    {
+    public function speciesAll() {
         try {
             $cacheKey = __METHOD__;
-            $results  = Cache::get($cacheKey);
+            $results = Cache::get($cacheKey);
             if (!$results) {
                 $results = DB::select('CALL proc_listSpeciesAll();');
                 Cache::forever($cacheKey, $results);
@@ -238,11 +233,10 @@ class ReportsApiController extends Controller
      * @access  public
      * @return Response
      */
-    public static function listOrders()
-    {
+    public function listOrders() {
         try {
             $cacheKey = __METHOD__;
-            $results  = Cache::get($cacheKey);
+            $results = Cache::get($cacheKey);
             if (!$results) {
                 $results = DB::select('CALL proc_listOrders();');
                 Cache::forever($cacheKey, $results);
@@ -258,11 +252,10 @@ class ReportsApiController extends Controller
      * @access  public
      * @return Response
      */
-    public static function listOrderIds()
-    {
+    public function listOrderIds() {
         try {
             $cacheKey = __METHOD__;
-            $results  = Cache::get($cacheKey);
+            $results = Cache::get($cacheKey);
             if (!$results) {
                 $results = DB::select('CALL proc_listOrderIds();');
                 Cache::forever($cacheKey, $results);
@@ -278,11 +271,10 @@ class ReportsApiController extends Controller
      * @access  public
      * @return Response
      */
-    public static function listSpeciesIds()
-    {
+    public function listSpeciesIds() {
         try {
             $cacheKey = __METHOD__;
-            $results  = Cache::get($cacheKey);
+            $results = Cache::get($cacheKey);
             if (!$results) {
                 $results = DB::select('CALL proc_listSpeciesIds();');
                 Cache::forever($cacheKey, $results);
@@ -298,11 +290,10 @@ class ReportsApiController extends Controller
      * @access  public
      * @return Response
      */
-    public static function listLocationIds()
-    {
+    public function listLocationIds() {
         try {
             $cacheKey = __METHOD__;
-            $results  = Cache::get($cacheKey);
+            $results = Cache::get($cacheKey);
             if (!$results) {
                 $results = DB::select('CALL proc_listLocationIds();');
                 Cache::forever($cacheKey, $results);
@@ -318,11 +309,10 @@ class ReportsApiController extends Controller
      * @access  public
      * @return Response
      */
-    public static function listOrdersAll()
-    {
+    public function listOrdersAll() {
         try {
             $cacheKey = __METHOD__;
-            $results  = Cache::get($cacheKey);
+            $results = Cache::get($cacheKey);
             if (!$results) {
                 $results = DB::select('CALL proc_listOrdersAll();');
                 Cache::forever($cacheKey, $results);
@@ -340,11 +330,10 @@ class ReportsApiController extends Controller
      * @param  orderId      int
      * @return Response
      */
-    public static function searchAll($searchString, $orderId)
-    {
+    public function searchAll($searchString, $orderId) {
         try {
             $cacheKey = __METHOD__ . $searchString . $orderId;
-            $results  = Cache::get($cacheKey);
+            $results = Cache::get($cacheKey);
             if (!$results) {
                 $results = DB::select('CALL proc_searchAll(?,?);', [$searchString, $orderId]);
                 Cache::forever($cacheKey, $results);
@@ -360,8 +349,7 @@ class ReportsApiController extends Controller
      * @access  public
      * @return Response
      */
-    public static function speciesByLocation()
-    {
+    public function speciesByLocation() {
         try {
             $results = Cache::get(__METHOD__);
             if (!$results) {
@@ -379,8 +367,7 @@ class ReportsApiController extends Controller
      * @access  public
      * @return Response
      */
-    public static function speciesByCounty()
-    {
+    public function speciesByCounty() {
         try {
             $results = Cache::get(__METHOD__);
             if (!$results) {
@@ -398,8 +385,7 @@ class ReportsApiController extends Controller
      * @access  public
      * @return Response
      */
-    public static function twoSpeciesByMonth()
-    {
+    public function twoSpeciesByMonth() {
         try {
             $results = Cache::get(__METHOD__);
             if (!$results) {
@@ -417,8 +403,7 @@ class ReportsApiController extends Controller
      * @access  public
      * @return Response
      */
-    public static function monthlyTemps()
-    {
+    public function monthlyTemps() {
         try {
             $results = Cache::get(__METHOD__);
             if (!$results) {
@@ -437,11 +422,10 @@ class ReportsApiController extends Controller
      * @param  locationId int
      * @return Response
      */
-    public static function speciesForLocation($locationId)
-    {
+    public function speciesForLocation($locationId) {
         try {
             $cacheKey = __METHOD__ . $locationId;
-            $results  = Cache::get($cacheKey);
+            $results = Cache::get($cacheKey);
             if (!$results) {
                 $results = DB::select('CALL proc_listSightingsForLocation2(?);', [$locationId]);
                 if (!count($results)) {
@@ -461,11 +445,10 @@ class ReportsApiController extends Controller
      * @param  locationId int
      * @return Response
      */
-    public static function locationDetail($locationId)
-    {
+    public function locationDetail($locationId) {
         try {
             $cacheKey = __METHOD__ . $locationId;
-            $results  = Cache::get($cacheKey);
+            $results = Cache::get($cacheKey);
             if (!$results) {
                 $results = DB::select('CALL proc_getLocation2(?);', [$locationId]);
                 if (!count($results)) {
