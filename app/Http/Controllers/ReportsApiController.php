@@ -103,6 +103,7 @@ class ReportsApiController extends Controller {
      * Species detail
      * @access  public
      * @param  speciesId  int
+     * 
      * @return Response
      */
     public function speciesDetail($speciesId) {
@@ -332,6 +333,7 @@ class ReportsApiController extends Controller {
      */
     public function searchAll($searchString, $orderId) {
         try {
+            $searchString = urldecode($searchString);
             $cacheKey = __METHOD__ . $searchString . $orderId;
             $results = Cache::get($cacheKey);
             if (!$results) {

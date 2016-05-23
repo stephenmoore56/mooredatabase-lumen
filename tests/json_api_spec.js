@@ -260,8 +260,27 @@ frisby.create('Search All using string and order')
     })
     .toss();
 
-frisby.create('Search All using no string and all orders')
+frisby.create('Search All using URL-encoded space and all orders')
     .get(baseURL + '/api/reports/searchAll/%20/-1')
+    .expectStatus(200)
+    .expectHeader('Content-Type', 'application/json')
+    .expectJSONTypes('*', {
+        id: Number,
+        order_name: String,
+        common_name: String,
+        scientific_name: String,
+        family: String,
+        subfamily: String,
+        sightings: Number,
+        last_seen: function (val) {
+            expect(val)
+                .toBeTypeOrNull(String);
+        }
+    })
+    .toss();
+
+frisby.create('Search All using space and all orders')
+    .get(baseURL + '/api/reports/searchAll/ /-1')
     .expectStatus(200)
     .expectHeader('Content-Type', 'application/json')
     .expectJSONTypes('*', {

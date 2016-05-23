@@ -20,7 +20,7 @@ $app->get('/api/reports/speciesByCounty', 'ReportsApiController@speciesByCounty'
 $app->get('/api/reports/speciesAll', 'ReportsApiController@speciesAll');
 $app->get('/api/reports/listOrders', 'ReportsApiController@listOrders');
 $app->get('/api/reports/listOrdersAll', 'ReportsApiController@listOrdersAll');
-$app->get('/api/reports/searchAll/{searchString}/{orderId:-1|[1-9]\d*}', 'ReportsApiController@searchAll');
+$app->get('/api/reports/searchAll/{searchString}/{orderId:\-?1|[1-9]\d*}', 'ReportsApiController@searchAll');
 $app->get('/api/reports/speciesDetail/{speciesId:[1-9]\d*}', 'ReportsApiController@speciesDetail');
 $app->get('/api/reports/monthsForSpecies/{speciesId:[1-9]\d*}', 'ReportsApiController@monthsForSpecies');
 $app->get('/api/reports/listOrderIds', 'ReportsApiController@listOrderIds');
