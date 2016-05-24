@@ -76,10 +76,12 @@ frisby.create('Species For Month JSON endpoint; invalid month')
     .expectStatus(400)
     .expectHeader('Content-Type', 'application/json')
     .expectJSONTypes('errors', {
-        message: String
+        status: String,
+        title: String
     })
     .expectJSON('errors', {
-        message: "400 Bad Request"
+        status: "400",
+        title: "Bad Request"
     })
     .toss();
 
@@ -107,10 +109,12 @@ frisby.create('Species For Order JSON endpoint; invalid order ID')
     .expectStatus(404)
     .expectHeader('Content-Type', 'application/json')
     .expectJSONTypes('errors', {
-        message: String
+        status: String,
+        title: String
     })
     .expectJSON('errors', {
-        message: "404 Not Found"
+        status: "404",
+        title: "Not Found"
     })
     .toss();
 
@@ -303,10 +307,12 @@ frisby.create('Species Detail JSON endpoint; invalid species ID')
     .expectStatus(404)
     .expectHeader('Content-Type', 'application/json')
     .expectJSONTypes('errors', {
-        message: String
+        status: String,
+        title: String
     })
     .expectJSON('errors', {
-        message: "404 Not Found"
+        status: "404",
+        title: "Not Found"
     })
     .toss();
 
@@ -334,10 +340,12 @@ frisby.create('Months For Species JSON endpoint; invalid species ID')
     .expectStatus(404)
     .expectHeader('Content-Type', 'application/json')
     .expectJSONTypes('errors', {
-        message: String
+        status: String,
+        title: String
     })
     .expectJSON('errors', {
-        message: "404 Not Found"
+        status: "404",
+        title: "Not Found"
     })
     .toss();
 
@@ -358,10 +366,12 @@ frisby.create('Sightings By Month JSON endpoint; invalid species ID')
     .expectStatus(404)
     .expectHeader('Content-Type', 'application/json')
     .expectJSONTypes('errors', {
-        message: String
+        status: String,
+        title: String
     })
     .expectJSON('errors', {
-        message: "404 Not Found"
+        status: "404",
+        title: "Not Found"
     })
     .toss();
 
@@ -409,10 +419,12 @@ frisby.create('Species For Location JSON endpoint; invalid location ID')
     .expectStatus(404)
     .expectHeader('Content-Type', 'application/json')
     .expectJSONTypes('errors', {
-        message: String
+        status: String,
+        title: String
     })
     .expectJSON('errors', {
-        message: "404 Not Found"
+        status: "404",
+        title: "Not Found"
     })
     .toss();
 
@@ -437,10 +449,12 @@ frisby.create('Location detail JSON endpoint; invalid species ID')
     .expectStatus(404)
     .expectHeader('Content-Type', 'application/json')
     .expectJSONTypes('errors', {
-        message: String
+        status: String,
+        title: String
     })
     .expectJSON('errors', {
-        message: "404 Not Found"
+        status: "404",
+        title: "Not Found"
     })
     .toss();
 
