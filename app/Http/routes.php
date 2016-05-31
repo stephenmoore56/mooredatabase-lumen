@@ -31,3 +31,5 @@ $app->get('/api/reports/locationDetail/{locationId:[1-9]\d*}', 'ReportsApiContro
 $app->get('/api/reports/twoSpeciesByMonth', 'ReportsApiController@twoSpeciesByMonth');
 $app->get('/api/reports/monthlyTemps', 'ReportsApiController@monthlyTemps');
 $app->get('/api/reports/sightingsByMonth/{speciesId:[1-9]\d*}', 'ReportsApiController@sightingsByMonth');
+$app->get('/api/reports/sightingsByMonth/{speciesId:[1-9]\d*}', 'ReportsApiController@sightingsByMonth');
+$app->get('/api/reports/speciesForYear/{year:[0-9]\d*}', 'ReportsApiController@speciesForYear');

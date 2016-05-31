@@ -101,6 +101,30 @@ class ReportsApiController extends Controller {
     }
 
     /**
+     * List species for year
+     * @access  public
+     * @param  year int
+     * @return Response
+     */
+    public static function speciesForYear($year) {
+        try {
+            $cacheKey = __METHOD__ . $year;
+            $results = Cache::get($cacheKey);
+            if (!$results) {
+                $results = DB::select('CALL proc_listSpeciesForYear(?);', [$year]);
+                if (!count($results)) {
+                    return self::formatErrorResponse(Response::HTTP_NOT_FOUND, self::HTTP_NOT_FOUND_MESSAGE);
+                }
+                Cache::forever($cacheKey, $results);
+            }
+            return self::formatNormalResponse(Response::HTTP_OK, $results);
+        } catch (Exception $e) {
+            return self::formatErrorResponse(Response::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());
+        }
+    }
+
+
+    /**
      * Species detail
      * @access  public
      * @param  speciesId  int

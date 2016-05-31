@@ -104,6 +104,38 @@ frisby.create('Species For Month JSON endpoint')
     })
     .toss();
 
+frisby.create('Species For Year JSON endpoint; invalid year')
+    .get(baseURL + '/api/reports/speciesForYear/9999')
+    .expectStatus(404)
+    .expectHeader('Content-Type', 'application/json')
+    .expectJSONTypes('errors', {
+        status: String,
+        title: String
+    })
+    .expectJSON('errors', {
+        status: "404",
+        title: "Not Found"
+    })
+    .toss();
+
+frisby.create('Species For YearN endpoint')
+    .get(baseURL + '/api/reports/speciesForYear/2014')
+    .expectStatus(200)
+    .expectHeader('Content-Type', 'application/json')
+    .expectJSONTypes('data.*', {
+        id: Number,
+        order_name: String,
+        order_notes: String,
+        common_name: String,
+        scientific_name: String,
+        family: String,
+        subfamily: String,
+        order_species_count: Number,
+        sightings: Number,
+        last_seen: String
+    })
+    .toss();
+
 frisby.create('Species For Order JSON endpoint; invalid order ID')
     .get(baseURL + '/api/reports/speciesForOrder/9999')
     .expectStatus(404)
