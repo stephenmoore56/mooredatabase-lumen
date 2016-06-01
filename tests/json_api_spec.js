@@ -118,7 +118,7 @@ frisby.create('Species For Year JSON endpoint; invalid year')
     })
     .toss();
 
-frisby.create('Species For YearN endpoint')
+frisby.create('Species For Year JSON endpoint')
     .get(baseURL + '/api/reports/speciesForYear/2014')
     .expectStatus(200)
     .expectHeader('Content-Type', 'application/json')
@@ -132,6 +132,7 @@ frisby.create('Species For YearN endpoint')
         subfamily: String,
         order_species_count: Number,
         sightings: Number,
+        first_seen: String,
         last_seen: String
     })
     .toss();
