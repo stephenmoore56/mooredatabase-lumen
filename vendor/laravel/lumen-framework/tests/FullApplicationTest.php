@@ -25,6 +25,25 @@ class FullApplicationTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Hello World', $response->getContent());
     }
 
+    public function testAddRouteMultipleMethodRequest()
+    {
+        $app = new Application;
+
+        $app->addRoute(['GET', 'POST'], '/', function () {
+            return response('Hello World');
+        });
+
+        $response = $app->handle(Request::create('/', 'GET'));
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals('Hello World', $response->getContent());
+
+        $response = $app->handle(Request::create('/', 'POST'));
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals('Hello World', $response->getContent());
+    }
+
     public function testRequestWithoutSymfonyClass()
     {
         $app = new Application;
@@ -81,7 +100,7 @@ class FullApplicationTest extends PHPUnit_Framework_TestCase
     {
         $app = new Application;
         $app->get('/foo-bar/{baz}', function ($baz = 'default-value') {
-          return response($baz);
+            return response($baz);
         });
 
         $response = $app->handle(Request::create('/foo-bar/something', 'GET'));
@@ -182,6 +201,39 @@ class FullApplicationTest extends PHPUnit_Framework_TestCase
         $app = new Application;
 
         $app->middleware(['LumenTestMiddleware']);
+        $app->instance('middleware.disable', true);
+
+        $app->get('/', function () {
+            return response('Hello World');
+        });
+
+        $response = $app->handle(Request::create('/', 'GET'));
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals('Hello World', $response->getContent());
+    }
+
+    public function testTerminableGlobalMiddleware()
+    {
+        $app = new Application;
+
+        $app->middleware(['LumenTestTerminateMiddleware']);
+
+        $app->get('/', function () {
+            return response('Hello World');
+        });
+
+        $response = $app->handle(Request::create('/', 'GET'));
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals('TERMINATED', $response->getContent());
+    }
+
+    public function testTerminateWithMiddlewareDisabled()
+    {
+        $app = new Application;
+
+        $app->middleware(['LumenTestTerminateMiddleware']);
         $app->instance('middleware.disable', true);
 
         $app->get('/', function () {
@@ -409,6 +461,20 @@ class FullApplicationTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($app->environment(['production']));
     }
 
+    public function testNamespaceDetection()
+    {
+        $app = new Application;
+        $this->setExpectedException('RuntimeException');
+        $app->getNamespace();
+    }
+
+    public function testRunningUnitTestsDetection()
+    {
+        $app = new Application;
+
+        $this->assertEquals(false, $app->runningUnitTests());
+    }
+
     public function testValidationHelpers()
     {
         $app = new Application;
@@ -467,6 +533,15 @@ class FullApplicationTest extends PHPUnit_Framework_TestCase
         $response = $app->handle(Request::create('/', 'GET'));
 
         $this->assertSame('1234', $response->getContent());
+    }
+
+    public function testCanResolveValidationFactoryFromContract()
+    {
+        $app = new Application();
+
+        $validator = $app['Illuminate\Contracts\Validation\Factory'];
+
+        $this->assertInstanceOf('Illuminate\Contracts\Validation\Factory', $validator);
     }
 }
 
@@ -531,5 +606,18 @@ class LumenTestParameterizedMiddleware
     public function handle($request, $next, $parameter1, $parameter2)
     {
         return response("Middleware - $parameter1 - $parameter2");
+    }
+}
+
+class LumenTestTerminateMiddleware
+{
+    public function handle($request, $next)
+    {
+        return $next($request);
+    }
+
+    public function terminate($request, Illuminate\Http\Response $response)
+    {
+        $response->setContent('TERMINATED');
     }
 }

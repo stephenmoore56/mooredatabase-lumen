@@ -181,9 +181,10 @@ trait RoutesRequests
     /**
      * Add a route to the collection.
      *
-     * @param  string  $method
+     * @param  array|string  $method
      * @param  string  $uri
      * @param  mixed  $action
+     * @return void
      */
     public function addRoute($method, $uri, $action)
     {
@@ -207,7 +208,13 @@ trait RoutesRequests
             $this->namedRoutes[$action['as']] = $uri;
         }
 
-        $this->routes[$method.$uri] = ['method' => $method, 'uri' => $uri, 'action' => $action];
+        if (is_array($method)) {
+            foreach ($method as $verb) {
+                $this->routes[$verb.$uri] = ['method' => $verb, 'uri' => $uri, 'action' => $action];
+            }
+        } else {
+            $this->routes[$method.$uri] = ['method' => $method, 'uri' => $uri, 'action' => $action];
+        }
     }
 
     /**
@@ -313,7 +320,13 @@ trait RoutesRequests
      */
     public function handle(SymfonyRequest $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true)
     {
-        return $this->dispatch($request);
+        $response = $this->dispatch($request);
+
+        if (count($this->middleware) > 0) {
+            $this->callTerminableMiddleware($response);
+        }
+
+        return $response;
     }
 
     /**
@@ -345,6 +358,10 @@ trait RoutesRequests
      */
     protected function callTerminableMiddleware($response)
     {
+        if ($this->shouldSkipMiddleware()) {
+            return;
+        }
+
         $response = $this->prepareResponse($response);
 
         foreach ($this->middleware as $middleware) {
@@ -352,7 +369,7 @@ trait RoutesRequests
                 continue;
             }
 
-            $instance = $this->make($middleware);
+            $instance = $this->make(explode(':', $middleware)[0]);
 
             if (method_exists($instance, 'terminate')) {
                 $instance->terminate($this->make('request'), $response);
@@ -470,8 +487,8 @@ trait RoutesRequests
         if (isset($action['middleware'])) {
             $middleware = $this->gatherMiddlewareClassNames($action['middleware']);
 
-            return $this->prepareResponse($this->sendThroughPipeline($middleware, function () use ($routeInfo) {
-                return $this->callActionOnArrayBasedRoute($routeInfo);
+            return $this->prepareResponse($this->sendThroughPipeline($middleware, function () {
+                return $this->callActionOnArrayBasedRoute($this['request']->route());
             }));
         }
 
@@ -616,10 +633,7 @@ trait RoutesRequests
      */
     protected function sendThroughPipeline(array $middleware, Closure $then)
     {
-        $shouldSkipMiddleware = $this->bound('middleware.disable') &&
-                                        $this->make('middleware.disable') === true;
-
-        if (count($middleware) > 0 && ! $shouldSkipMiddleware) {
+        if (count($middleware) > 0 && ! $this->shouldSkipMiddleware()) {
             return (new Pipeline($this))
                 ->send($this->make('request'))
                 ->through($middleware)
@@ -682,5 +696,15 @@ trait RoutesRequests
     public function getRoutes()
     {
         return $this->routes;
+    }
+
+    /**
+     * Determines whether middleware should be skipped during request.
+     *
+     * @return bool
+     */
+    protected function shouldSkipMiddleware()
+    {
+        return $this->bound('middleware.disable') && $this->make('middleware.disable') === true;
     }
 }

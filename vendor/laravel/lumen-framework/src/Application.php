@@ -3,6 +3,7 @@
 namespace Laravel\Lumen;
 
 use Monolog\Logger;
+use RuntimeException;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Composer;
@@ -110,7 +111,7 @@ class Application extends Container
      */
     public function version()
     {
-        return 'Lumen (5.2.6) (Laravel Components 5.2.*)';
+        return 'Lumen (5.2.9) (Laravel Components 5.2.*)';
     }
 
     /**
@@ -708,6 +709,16 @@ class Application extends Container
     }
 
     /**
+     * Determine if we are running unit tests.
+     *
+     * @return bool
+     */
+    public function runningUnitTests()
+    {
+        return $this->environment() == 'testing';
+    }
+
+    /**
      * Prepare the application to execute a console command.
      *
      * @return void
@@ -724,6 +735,32 @@ class Application extends Container
         $this->register('Illuminate\Database\MigrationServiceProvider');
         $this->register('Illuminate\Database\SeedServiceProvider');
         $this->register('Illuminate\Queue\ConsoleServiceProvider');
+    }
+
+    /**
+     * Get the application namespace.
+     *
+     * @return string
+     *
+     * @throws \RuntimeException
+     */
+    public function getNamespace()
+    {
+        if (! is_null($this->namespace)) {
+            return $this->namespace;
+        }
+
+        $composer = json_decode(file_get_contents(base_path('composer.json')), true);
+
+        foreach ((array) data_get($composer, 'autoload.psr-4') as $namespace => $path) {
+            foreach ((array) $path as $pathChoice) {
+                if (realpath(app()->path()) == realpath(base_path().'/'.$pathChoice)) {
+                    return $this->namespace = $namespace;
+                }
+            }
+        }
+
+        throw new RuntimeException('Unable to detect application namespace.');
     }
 
     /**
@@ -752,6 +789,7 @@ class Application extends Container
             'Illuminate\Contracts\Queue\Queue' => 'queue.connection',
             'request' => 'Illuminate\Http\Request',
             'Laravel\Lumen\Routing\UrlGenerator' => 'url',
+            'Illuminate\Contracts\Validation\Factory' => 'validator',
             'Illuminate\Contracts\View\Factory' => 'view',
         ];
     }
@@ -796,6 +834,7 @@ class Application extends Container
         'translator' => 'registerTranslationBindings',
         'url' => 'registerUrlGeneratorBindings',
         'validator' => 'registerValidatorBindings',
+        'Illuminate\Contracts\Validation\Factory' => 'registerValidatorBindings',
         'view' => 'registerViewBindings',
         'Illuminate\Contracts\View\Factory' => 'registerViewBindings',
     ];
