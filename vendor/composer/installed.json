@@ -23,7 +23,7 @@
         "suggest": {
             "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
         },
-        "time": "2016-03-18 20:34:03",
+        "time": "2016-03-18T20:34:03+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -67,7 +67,7 @@
         "require": {
             "php": ">=5.4.0"
         },
-        "time": "2015-12-20 19:50:12",
+        "time": "2015-12-20T19:50:12+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -115,7 +115,7 @@
         "require-dev": {
             "phpunit/phpunit": "~4.0|~5.0"
         },
-        "time": "2016-01-26 21:23:30",
+        "time": "2016-01-26T21:23:30+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -161,7 +161,7 @@
         "require-dev": {
             "phpunit/phpunit": "4.*"
         },
-        "time": "2015-11-06 14:35:42",
+        "time": "2015-11-06T14:35:42+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -231,7 +231,7 @@
         "require-dev": {
             "phpunit/phpunit": "~4.0|~5.0"
         },
-        "time": "2015-11-04 20:07:17",
+        "time": "2015-11-04T20:07:17+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -281,7 +281,7 @@
             "phpunit/phpunit": "~4.0",
             "squizlabs/php_codesniffer": "~1.5"
         },
-        "time": "2016-04-29 12:21:54",
+        "time": "2016-04-29T12:21:54+00:00",
         "type": "library",
         "extra": {
             "branch-alias": []
@@ -323,7 +323,7 @@
             "reference": "58b3a85e7999757d6ad81c787a1fbf5ff6c628c6",
             "shasum": ""
         },
-        "time": "2015-06-21 13:59:46",
+        "time": "2015-06-21T13:59:46+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -369,7 +369,7 @@
         "suggest": {
             "ext-uopz": "*"
         },
-        "time": "2015-10-12 03:26:01",
+        "time": "2015-10-12T03:26:01+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -419,7 +419,7 @@
         "require-dev": {
             "phpunit/phpunit": "~4.4"
         },
-        "time": "2015-11-11 19:50:13",
+        "time": "2015-11-11T19:50:13+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -474,7 +474,7 @@
         "require-dev": {
             "phpunit/phpunit": "~4.8"
         },
-        "time": "2015-12-08 07:14:41",
+        "time": "2015-12-08T07:14:41+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -532,7 +532,7 @@
             "phpunit/phpunit": "~4.0",
             "squizlabs/php_codesniffer": "~2.0"
         },
-        "time": "2015-06-14 21:17:01",
+        "time": "2015-06-14T21:17:01+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -581,7 +581,7 @@
         "require": {
             "php": ">=5.3.3"
         },
-        "time": "2015-06-21 13:50:34",
+        "time": "2015-06-21T13:50:34+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -633,7 +633,7 @@
         "suggest": {
             "ext-soap": "*"
         },
-        "time": "2015-10-02 06:51:40",
+        "time": "2015-10-02T06:51:40+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -696,7 +696,7 @@
             "ext-xdebug": ">=2.2.1",
             "ext-xmlwriter": "*"
         },
-        "time": "2015-10-06 15:47:00",
+        "time": "2015-10-06T15:47:00+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -746,7 +746,7 @@
         "require": {
             "php": ">=5.3.3"
         },
-        "time": "2016-11-14 01:06:16",
+        "time": "2016-11-14T01:06:16+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -801,7 +801,7 @@
             "php": ">=5.3.3",
             "symfony/polyfill-util": "~1.0"
         },
-        "time": "2016-11-14 01:06:16",
+        "time": "2016-11-14T01:06:16+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -861,7 +861,7 @@
         "suggest": {
             "ext-mbstring": "For best performance"
         },
-        "time": "2016-11-14 01:06:16",
+        "time": "2016-11-14T01:06:16+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -923,7 +923,7 @@
         "require-dev": {
             "symfony/expression-language": "~2.8|~3.0"
         },
-        "time": "2016-07-17 13:54:30",
+        "time": "2016-07-17T13:54:30+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -957,68 +957,6 @@
         "homepage": "https://symfony.com"
     },
     {
-        "name": "symfony/event-dispatcher",
-        "version": "v3.2.0",
-        "version_normalized": "3.2.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/event-dispatcher.git",
-            "reference": "e8f47a327c2f0fd5aa04fa60af2b693006ed7283"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/e8f47a327c2f0fd5aa04fa60af2b693006ed7283",
-            "reference": "e8f47a327c2f0fd5aa04fa60af2b693006ed7283",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.5.9"
-        },
-        "require-dev": {
-            "psr/log": "~1.0",
-            "symfony/config": "~2.8|~3.0",
-            "symfony/dependency-injection": "~2.8|~3.0",
-            "symfony/expression-language": "~2.8|~3.0",
-            "symfony/stopwatch": "~2.8|~3.0"
-        },
-        "suggest": {
-            "symfony/dependency-injection": "",
-            "symfony/http-kernel": ""
-        },
-        "time": "2016-10-13 06:29:04",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.2-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Symfony\\Component\\EventDispatcher\\": ""
-            },
-            "exclude-from-classmap": [
-                "/Tests/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony EventDispatcher Component",
-        "homepage": "https://symfony.com"
-    },
-    {
         "name": "psr/log",
         "version": "1.0.2",
         "version_normalized": "1.0.2.0",
@@ -1036,7 +974,7 @@
         "require": {
             "php": ">=5.3.0"
         },
-        "time": "2016-10-10 12:19:37",
+        "time": "2016-10-10T12:19:37+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1093,7 +1031,7 @@
             "symfony/class-loader": "~2.8|~3.0",
             "symfony/http-kernel": "~2.8|~3.0"
         },
-        "time": "2016-07-30 07:22:48",
+        "time": "2016-07-30T07:22:48+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1177,7 +1115,7 @@
             "symfony/finder": "",
             "symfony/var-dumper": ""
         },
-        "time": "2016-07-30 09:10:37",
+        "time": "2016-07-30T09:10:37+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1258,7 +1196,7 @@
             "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
             "sentry/sentry": "Allow sending log messages to a Sentry server"
         },
-        "time": "2016-11-26 00:15:39",
+        "time": "2016-11-26T00:15:39+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1308,7 +1246,7 @@
         "require": {
             "php": ">=5.5.9"
         },
-        "time": "2016-08-08 11:46:08",
+        "time": "2016-08-08T11:46:08+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1366,7 +1304,7 @@
             "symfony/process": "Required to use the composer class (2.8.*|3.0.*).",
             "symfony/var-dumper": "Improves the dd function (2.8.*|3.0.*)."
         },
-        "time": "2016-08-05 14:49:58",
+        "time": "2016-08-05T14:49:58+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1413,7 +1351,7 @@
         "require": {
             "php": ">=5.5.9"
         },
-        "time": "2016-06-29 05:40:00",
+        "time": "2016-06-29T05:40:00+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1472,7 +1410,7 @@
             "league/flysystem-aws-s3-v3": "Required to use the Flysystem S3 driver (~1.0).",
             "league/flysystem-rackspace": "Required to use the Flysystem Rackspace driver (~1.0)."
         },
-        "time": "2016-08-17 17:21:29",
+        "time": "2016-08-17T17:21:29+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1517,7 +1455,7 @@
             "illuminate/contracts": "5.2.*",
             "php": ">=5.5.9"
         },
-        "time": "2016-08-01 13:49:14",
+        "time": "2016-08-01T13:49:14+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1564,7 +1502,7 @@
             "illuminate/support": "5.2.*",
             "php": ">=5.5.9"
         },
-        "time": "2016-08-01 13:49:14",
+        "time": "2016-08-01T13:49:14+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1614,7 +1552,7 @@
             "php": ">=5.5.9",
             "symfony/debug": "2.8.*|3.0.*"
         },
-        "time": "2016-08-01 13:49:14",
+        "time": "2016-08-01T13:49:14+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1673,7 +1611,7 @@
             "symfony/config": "",
             "symfony/yaml": ""
         },
-        "time": "2016-07-30 07:22:48",
+        "time": "2016-07-30T07:22:48+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1732,7 +1670,7 @@
         "suggest": {
             "illuminate/database": "Required to use the database presence verifier (5.2.*)."
         },
-        "time": "2016-08-18 13:15:33",
+        "time": "2016-08-18T13:15:33+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1779,7 +1717,7 @@
             "php": ">=5.5.9",
             "symfony/translation": "2.8.*|3.0.*"
         },
-        "time": "2016-08-01 13:49:14",
+        "time": "2016-08-01T13:49:14+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1823,7 +1761,7 @@
         "require": {
             "php": ">=5.5.9"
         },
-        "time": "2016-07-28 11:13:34",
+        "time": "2016-07-28T11:13:34+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1885,7 +1823,7 @@
             "symfony/event-dispatcher": "",
             "symfony/process": ""
         },
-        "time": "2016-07-30 07:22:48",
+        "time": "2016-07-30T07:22:48+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1945,7 +1883,7 @@
             "mtdowling/cron-expression": "Required to use scheduling component (~1.0).",
             "symfony/process": "Required to use scheduling component (2.8.*|3.0.*)."
         },
-        "time": "2016-08-01 13:49:14",
+        "time": "2016-08-01T13:49:14+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2001,7 +1939,7 @@
             "illuminate/redis": "Required to use the Redis queue driver (5.2.*).",
             "pda/pheanstalk": "Required to use the Beanstalk queue driver (~3.0)."
         },
-        "time": "2016-08-01 13:49:14",
+        "time": "2016-08-01T13:49:14+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2050,7 +1988,7 @@
             "illuminate/support": "5.2.*",
             "php": ">=5.5.9"
         },
-        "time": "2016-08-01 13:49:14",
+        "time": "2016-08-01T13:49:14+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2096,7 +2034,7 @@
             "illuminate/support": "5.2.*",
             "php": ">=5.5.9"
         },
-        "time": "2016-08-01 13:49:14",
+        "time": "2016-08-01T13:49:14+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2148,7 +2086,7 @@
         "suggest": {
             "illuminate/console": "Required to use the session:table command (5.2.*)."
         },
-        "time": "2016-08-01 13:49:14",
+        "time": "2016-08-01T13:49:14+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2196,7 +2134,7 @@
             "symfony/http-foundation": "2.8.*|3.0.*",
             "symfony/http-kernel": "2.8.*|3.0.*"
         },
-        "time": "2016-08-10 17:33:08",
+        "time": "2016-08-10T17:33:08+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2242,7 +2180,7 @@
             "illuminate/support": "5.2.*",
             "php": ">=5.5.9"
         },
-        "time": "2016-08-01 13:49:14",
+        "time": "2016-08-01T13:49:14+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2291,7 +2229,7 @@
             "paragonie/random_compat": "~1.4",
             "php": ">=5.5.9"
         },
-        "time": "2016-08-01 13:49:14",
+        "time": "2016-08-01T13:49:14+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2347,7 +2285,7 @@
             "illuminate/filesystem": "Required to use the migrations (5.2.*).",
             "illuminate/pagination": "Required to paginate the result set (5.2.*)."
         },
-        "time": "2016-08-25 07:01:20",
+        "time": "2016-08-25T07:01:20+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2400,7 +2338,7 @@
             "illuminate/support": "5.2.*",
             "php": ">=5.5.9"
         },
-        "time": "2016-08-01 13:49:14",
+        "time": "2016-08-01T13:49:14+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2452,7 +2390,7 @@
             "illuminate/filesystem": "Required to use the file cache driver (5.2.*).",
             "illuminate/redis": "Required to use the redis cache driver (5.2.*)."
         },
-        "time": "2016-08-18 14:17:46",
+        "time": "2016-08-18T14:17:46+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2499,7 +2437,7 @@
             "illuminate/support": "5.2.*",
             "php": ">=5.5.9"
         },
-        "time": "2016-08-02 12:44:26",
+        "time": "2016-08-02T12:44:26+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2548,7 +2486,7 @@
         "suggest": {
             "pusher/pusher-php-server": "Required to use the Pusher broadcast driver (~2.0)."
         },
-        "time": "2016-08-01 13:49:14",
+        "time": "2016-08-01T13:49:14+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2601,7 +2539,7 @@
             "illuminate/queue": "Required to fire login / logout events (5.2.*).",
             "illuminate/session": "Required to use the session based guard (5.2.*)."
         },
-        "time": "2016-08-01 13:49:14",
+        "time": "2016-08-01T13:49:14+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2679,7 +2617,7 @@
         "suggest": {
             "vlucas/phpdotenv": "Required to use .env files (~2.2)."
         },
-        "time": "2016-09-07 18:38:25",
+        "time": "2016-09-07T18:38:25+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2734,7 +2672,7 @@
         "require-dev": {
             "phpunit/phpunit": "^4.8 || ^5.0"
         },
-        "time": "2016-09-01 10:05:43",
+        "time": "2016-09-01T10:05:43+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2766,63 +2704,6 @@
         ]
     },
     {
-        "name": "symfony/yaml",
-        "version": "v3.2.0",
-        "version_normalized": "3.2.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/yaml.git",
-            "reference": "f2300ba8fbb002c028710b92e1906e7457410693"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/yaml/zipball/f2300ba8fbb002c028710b92e1906e7457410693",
-            "reference": "f2300ba8fbb002c028710b92e1906e7457410693",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.5.9"
-        },
-        "require-dev": {
-            "symfony/console": "~2.8|~3.0"
-        },
-        "suggest": {
-            "symfony/console": "For validating YAML files using the lint command"
-        },
-        "time": "2016-11-18 21:17:59",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.2-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Symfony\\Component\\Yaml\\": ""
-            },
-            "exclude-from-classmap": [
-                "/Tests/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony Yaml Component",
-        "homepage": "https://symfony.com"
-    },
-    {
         "name": "sebastian/exporter",
         "version": "1.2.2",
         "version_normalized": "1.2.2.0",
@@ -2845,7 +2726,7 @@
             "ext-mbstring": "*",
             "phpunit/phpunit": "~4.4"
         },
-        "time": "2016-06-17 09:04:28",
+        "time": "2016-06-17T09:04:28+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2912,7 +2793,7 @@
         "require-dev": {
             "phpunit/phpunit": "^4.8 || ^5.0"
         },
-        "time": "2016-08-18 05:49:44",
+        "time": "2016-08-18T05:49:44+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2966,7 +2847,7 @@
         "require-dev": {
             "phpunit/phpunit": "~4.4"
         },
-        "time": "2016-11-19 09:18:40",
+        "time": "2016-11-19T09:18:40+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -3030,7 +2911,7 @@
         "require-dev": {
             "phpunit/phpunit": "~4|~5"
         },
-        "time": "2016-05-12 18:03:57",
+        "time": "2016-05-12T18:03:57+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -3073,7 +2954,7 @@
         "require": {
             "php": ">=5.3.3"
         },
-        "time": "2016-10-03 07:40:28",
+        "time": "2016-10-03T07:40:28+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -3126,7 +3007,7 @@
         "require-dev": {
             "phpunit/phpunit": "~4.2"
         },
-        "time": "2016-11-15 14:06:22",
+        "time": "2016-11-15T14:06:22+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -3177,7 +3058,7 @@
             "phpunit/phpunit": "^4.6",
             "sebastian/version": "^1.0.1"
         },
-        "time": "2016-11-23 20:04:58",
+        "time": "2016-11-23T20:04:58+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -3228,7 +3109,7 @@
         "require-dev": {
             "phpunit/phpunit": "^4.6"
         },
-        "time": "2015-12-27 11:43:31",
+        "time": "2015-12-27T11:43:31+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -3286,7 +3167,7 @@
             "mockery/mockery": "^0.9.4",
             "phpunit/phpunit": "^5.2||^4.8.24"
         },
-        "time": "2016-11-25 06:54:22",
+        "time": "2016-11-25T06:54:22+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -3337,7 +3218,7 @@
             "mockery/mockery": "^0.9.4",
             "phpunit/phpunit": "^4.4"
         },
-        "time": "2016-09-30 07:12:33",
+        "time": "2016-09-30T07:12:33+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -3385,7 +3266,7 @@
             "phpspec/phpspec": "^2.0",
             "phpunit/phpunit": "^4.8 || ^5.6.5"
         },
-        "time": "2016-11-21 14:58:47",
+        "time": "2016-11-21T14:58:47+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -3425,18 +3306,75 @@
         ]
     },
     {
-        "name": "phpunit/phpunit",
-        "version": "4.8.30",
-        "version_normalized": "4.8.30.0",
+        "name": "symfony/yaml",
+        "version": "v3.2.1",
+        "version_normalized": "3.2.1.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/sebastianbergmann/phpunit.git",
-            "reference": "a534e04d0bd39c557c2881c341efd06fa6f1292a"
+            "url": "https://github.com/symfony/yaml.git",
+            "reference": "a7095af4b97a0955f85c8989106c249fa649011f"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a534e04d0bd39c557c2881c341efd06fa6f1292a",
-            "reference": "a534e04d0bd39c557c2881c341efd06fa6f1292a",
+            "url": "https://api.github.com/repos/symfony/yaml/zipball/a7095af4b97a0955f85c8989106c249fa649011f",
+            "reference": "a7095af4b97a0955f85c8989106c249fa649011f",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.5.9"
+        },
+        "require-dev": {
+            "symfony/console": "~2.8|~3.0"
+        },
+        "suggest": {
+            "symfony/console": "For validating YAML files using the lint command"
+        },
+        "time": "2016-12-10T10:07:06+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.2-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\Yaml\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony Yaml Component",
+        "homepage": "https://symfony.com"
+    },
+    {
+        "name": "phpunit/phpunit",
+        "version": "4.8.31",
+        "version_normalized": "4.8.31.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/sebastianbergmann/phpunit.git",
+            "reference": "98b2b39a520766bec663ff5b7ff1b729db9dbfe3"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/98b2b39a520766bec663ff5b7ff1b729db9dbfe3",
+            "reference": "98b2b39a520766bec663ff5b7ff1b729db9dbfe3",
             "shasum": ""
         },
         "require": {
@@ -3463,7 +3401,7 @@
         "suggest": {
             "phpunit/php-invoker": "~1.1"
         },
-        "time": "2016-12-01 17:05:48",
+        "time": "2016-12-09T02:45:31+00:00",
         "bin": [
             "phpunit"
         ],
@@ -3497,5 +3435,67 @@
             "testing",
             "xunit"
         ]
+    },
+    {
+        "name": "symfony/event-dispatcher",
+        "version": "v3.2.1",
+        "version_normalized": "3.2.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/event-dispatcher.git",
+            "reference": "e8f47a327c2f0fd5aa04fa60af2b693006ed7283"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/e8f47a327c2f0fd5aa04fa60af2b693006ed7283",
+            "reference": "e8f47a327c2f0fd5aa04fa60af2b693006ed7283",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.5.9"
+        },
+        "require-dev": {
+            "psr/log": "~1.0",
+            "symfony/config": "~2.8|~3.0",
+            "symfony/dependency-injection": "~2.8|~3.0",
+            "symfony/expression-language": "~2.8|~3.0",
+            "symfony/stopwatch": "~2.8|~3.0"
+        },
+        "suggest": {
+            "symfony/dependency-injection": "",
+            "symfony/http-kernel": ""
+        },
+        "time": "2016-10-13T06:29:04+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.2-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\EventDispatcher\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony EventDispatcher Component",
+        "homepage": "https://symfony.com"
     }
 ]
