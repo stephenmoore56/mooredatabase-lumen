@@ -6,6 +6,7 @@ use Cache;
 use DB;
 use Symfony\Component\HttpFoundation\Response as Response;
 use \Exception as Exception;
+use App\Http\Mappers\ReportsApiMapper as Mapper;
 
 /**
  * Methods that serve JSON data for reports
@@ -31,7 +32,7 @@ class ReportsApiController extends Controller {
      */
     public static function clearCache() {
         try {
-            Cache::flush();
+            Mapper::clearCache();
             return response()->json(['data' => ['message' => 'Cache flushed.']], Response::HTTP_OK, []);
         } catch (Exception $e) {
             return self::formatErrorResponse(Response::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());
@@ -45,11 +46,7 @@ class ReportsApiController extends Controller {
      */
     public static function speciesByMonth() {
         try {
-            $results = Cache::get(__METHOD__);
-            if (!$results) {
-                $results = DB::select('CALL proc_listSpeciesByMonth();');
-                Cache::forever(__METHOD__, $results);
-            }
+            $results = Mapper::speciesByMonth();
             return self::formatNormalResponse(Response::HTTP_OK, $results);
         } catch (Exception $e) {
             return self::formatErrorResponse(Response::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());

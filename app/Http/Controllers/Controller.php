@@ -17,7 +17,7 @@ class Controller extends BaseController {
 
     /**
      * Format normal data response
-     * @param $results
+     * @param $resultsd
      * @return \Symfony\Component\HttpFoundation\Response
      */
     protected static function formatNormalResponse($status, $results) {
