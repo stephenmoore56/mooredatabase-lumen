@@ -88,6 +88,7 @@ class ComposerStaticInitfe38b6a45eb95a9e23671e2e69bc6975
         ),
         'C' => 
         array (
+            'Cron\\' => 5,
             'Carbon\\' => 7,
         ),
         'A' => 
@@ -271,6 +272,10 @@ class ComposerStaticInitfe38b6a45eb95a9e23671e2e69bc6975
         array (
             0 => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator',
         ),
+        'Cron\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron',
+        ),
         'Carbon\\' => 
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
@@ -294,13 +299,6 @@ class ComposerStaticInitfe38b6a45eb95a9e23671e2e69bc6975
             'Doctrine\\Common\\Inflector\\' => 
             array (
                 0 => __DIR__ . '/..' . '/doctrine/inflector/lib',
-            ),
-        ),
-        'C' => 
-        array (
-            'Cron' => 
-            array (
-                0 => __DIR__ . '/..' . '/mtdowling/cron-expression/src',
             ),
         ),
     );

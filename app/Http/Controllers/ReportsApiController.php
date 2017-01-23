@@ -1,8 +1,9 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use Symfony\Component\HttpFoundation\Response as Response;
+use Illuminate\Http\Response;
 use \Exception as Exception;
 use App\Http\Mappers\ReportsApiMapper as Mapper;
 
@@ -26,7 +27,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * Clear memcached; mainly for testing
 	 * @access  public
-	 * @return Response
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory
 	 */
 	public static function clearCache() {
 		try {
@@ -40,7 +41,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * List species and trips by month
 	 * @access  public
-	 * @return Response
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory
 	 */
 	public static function speciesByMonth() {
 		try {
@@ -54,7 +55,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * List species and trips by year
 	 * @access  public
-	 * @return Response
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory
 	 */
 	public static function speciesByYear() {
 		try {
@@ -68,10 +69,10 @@ class ReportsApiController extends Controller {
 	/**
 	 * List species for month
 	 * @access  public
-	 * @param  monthNumber int
-	 * @return Response
+	 * @param int $monthNumber
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory
 	 */
-	public static function speciesForMonth($monthNumber) {
+	public static function speciesForMonth(int $monthNumber) {
 		try {
 			if ($monthNumber > 12 || $monthNumber < 1) {
 				return self::formatErrorResponse(Response::HTTP_BAD_REQUEST, self::HTTP_BAD_REQUEST_MESSAGE);
@@ -89,10 +90,10 @@ class ReportsApiController extends Controller {
 	/**
 	 * List species for year
 	 * @access  public
-	 * @param  year int
-	 * @return Response
+	 * @param int $year
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory
 	 */
-	public static function speciesForYear($year) {
+	public static function speciesForYear(int $year) {
 		try {
 			$results = Mapper::speciesForYear($year);
 			if (!count($results)) {
@@ -108,11 +109,10 @@ class ReportsApiController extends Controller {
 	/**
 	 * Species detail
 	 * @access  public
-	 * @param  speciesId  int
-	 *
-	 * @return Response
+	 * @param int $speciesId
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory
 	 */
-	public static function speciesDetail($speciesId) {
+	public static function speciesDetail(int $speciesId) {
 		try {
 			$results = Mapper::speciesDetail($speciesId);
 			if (!count($results)) {
@@ -127,10 +127,10 @@ class ReportsApiController extends Controller {
 	/**
 	 * List months for species
 	 * @access  public
-	 * @param  speciesId  int
-	 * @return Response
+	 * @param int $speciesId
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory
 	 */
-	public static function monthsForSpecies($speciesId) {
+	public static function monthsForSpecies(int $speciesId) {
 		try {
 			$results = Mapper::monthsForSpecies($speciesId);
 			if ($results[0]->common_name == '') {
@@ -145,10 +145,10 @@ class ReportsApiController extends Controller {
 	/**
 	 * List months for species
 	 * @access  public
-	 * @param  speciesId  int
-	 * @return Response
+	 * @param int $speciesId
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory
 	 */
-	public static function sightingsByMonth($speciesId) {
+	public static function sightingsByMonth(int $speciesId) {
 		try {
 			$results = Mapper::sightingsByMonth($speciesId);
 			if (!count($results)) {
@@ -163,7 +163,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * List species by order
 	 * @access  public
-	 * @return Response
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory
 	 */
 	public static function speciesByOrder() {
 		try {
@@ -177,10 +177,10 @@ class ReportsApiController extends Controller {
 	/**
 	 * List species for order
 	 * @access  public
-	 * @param  orderId    int
-	 * @return Response
+	 * @param int $orderId
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory
 	 */
-	public static function speciesForOrder($orderId) {
+	public static function speciesForOrder(int $orderId) {
 		try {
 			$results = Mapper::speciesForOrder($orderId);
 			if (!count($results)) {
@@ -195,7 +195,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * List all species
 	 * @access  public
-	 * @return Response
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory
 	 */
 	public static function speciesAll() {
 		try {
@@ -209,7 +209,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * List orders
 	 * @access  public
-	 * @return Response
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory
 	 */
 	public static function listOrders() {
 		try {
@@ -223,7 +223,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * List order ids
 	 * @access  public
-	 * @return Response
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory
 	 */
 	public static function listOrderIds() {
 		try {
@@ -237,7 +237,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * List species ids
 	 * @access  public
-	 * @return Response
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory
 	 */
 	public static function listSpeciesIds() {
 		try {
@@ -251,7 +251,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * List location ids
 	 * @access  public
-	 * @return Response
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory
 	 */
 	public static function listLocationIds() {
 		try {
@@ -265,7 +265,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * List orders
 	 * @access  public
-	 * @return Response
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory
 	 */
 	public static function listOrdersAll() {
 		try {
@@ -279,11 +279,11 @@ class ReportsApiController extends Controller {
 	/**
 	 * search complete AOU list
 	 * @access  public
-	 * @param  searchString string
-	 * @param  orderId      int
-	 * @return Response
+	 * @param string $searchString
+	 * @param int $orderId
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory
 	 */
-	public static function searchAll($searchString, $orderId) {
+	public static function searchAll(string $searchString, int $orderId) {
 		try {
 			$results = Mapper::searchAll($searchString, $orderId);
 			return self::formatNormalResponse(Response::HTTP_OK, $results);
@@ -295,7 +295,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * List species and trips by location
 	 * @access  public
-	 * @return Response
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory
 	 */
 	public static function speciesByLocation() {
 		try {
@@ -309,7 +309,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * List species and trips by county
 	 * @access  public
-	 * @return Response
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory
 	 */
 	public static function speciesByCounty() {
 		try {
@@ -323,7 +323,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * List species by month for ducks and warblers
 	 * @access  public
-	 * @return Response
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory
 	 */
 	public static function twoSpeciesByMonth() {
 		try {
@@ -337,7 +337,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * Monthly average and record temperatures
 	 * @access  public
-	 * @return Response
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory
 	 */
 	public static function monthlyTemps() {
 		try {
@@ -351,10 +351,10 @@ class ReportsApiController extends Controller {
 	/**
 	 * List species for location
 	 * @access  public
-	 * @param  locationId int
-	 * @return Response
+	 * @param int $locationId
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory
 	 */
-	public static function speciesForLocation($locationId) {
+	public static function speciesForLocation(int $locationId) {
 		try {
 			$results = Mapper::speciesForLocation($locationId);
 			if (!count($results)) {
@@ -369,10 +369,10 @@ class ReportsApiController extends Controller {
 	/**
 	 * Location detail
 	 * @access  public
-	 * @param  locationId int
-	 * @return Response
+	 * @param int $locationId
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory
 	 */
-	public static function locationDetail($locationId) {
+	public static function locationDetail(int $locationId) {
 		try {
 			$results = Mapper::locationDetail($locationId);
 			if (!count($results)) {

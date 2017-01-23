@@ -1,9 +1,10 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\Http\Mappers;
 
-use Cache;
-use DB;
+use \Illuminate\Support\Facades\Cache;
+use \Illuminate\Support\Facades\DB;
 
 /**
  * Methods that call stored procedures and return arrays to controller methods
@@ -30,335 +31,328 @@ class ReportsApiMapper {
 	/**
 	 * List species and trips by month
 	 * @access  public
-	 * @return
+	 * @return array
 	 */
-	public static function speciesByMonth() {
-		$results = Cache::get(__METHOD__);
-		if (!$results) {
+	public static function speciesByMonth(): array {
+		$results = Cache::get(__METHOD__, function () {
 			$results = DB::select('CALL proc_listSpeciesByMonth();');
 			Cache::forever(__METHOD__, $results);
-		}
+			return $results;
+		});
 		return $results;
 	}
 
 	/**
 	 * List species and trips by year
 	 * @access  public
-	 * @return Array
+	 * @return array
 	 */
-	public static function speciesByYear() {
-		$results = Cache::get(__METHOD__);
-		if (!$results) {
+	public static function speciesByYear(): array {
+		$results = Cache::get(__METHOD__, function () {
 			$results = DB::select('CALL proc_listSpeciesByYear();');
 			Cache::forever(__METHOD__, $results);
-		}
+			return $results;
+		});
 		return $results;
 	}
 
 	/**
 	 * List species for month
 	 * @access  public
-	 * @param  monthNumber int
-	 * @return Array
+	 * @param int $monthNumber
+	 * @return array
 	 */
-	public static function speciesForMonth($monthNumber) {
+	public static function speciesForMonth(int $monthNumber): array {
 		$cacheKey = __METHOD__ . $monthNumber;
-		$results = Cache::get($cacheKey);
-		if (!$results) {
+		$results = Cache::get($cacheKey, function () use ($cacheKey, $monthNumber) {
 			$results = DB::select('CALL proc_listSpeciesForMonth(?);', [$monthNumber]);
 			Cache::forever($cacheKey, $results);
-		}
+			return $results;
+		});
 		return $results;
 	}
 
 	/**
 	 * List species for year
 	 * @access  public
-	 * @param  year int
-	 * @return Array
+	 * @param int $year
+	 * @return array
 	 */
-	public static function speciesForYear($year) {
+	public static function speciesForYear(int $year): array {
 		$cacheKey = __METHOD__ . $year;
-		$results = Cache::get($cacheKey);
-		if (!$results) {
+		$results = Cache::get($cacheKey, function () use ($cacheKey, $year) {
 			$results = DB::select('CALL proc_listSpeciesForYear(?);', [$year]);
 			Cache::forever($cacheKey, $results);
-		}
+			return $results;
+		});
 		return $results;
 	}
 
 	/**
 	 * Species detail
 	 * @access  public
-	 * @param  speciesId  int
-	 *
-	 * @return Array
+	 * @param int $speciesId
+	 * @return array
 	 */
-	public static function speciesDetail($speciesId) {
+	public static function speciesDetail(int $speciesId): array {
 		$cacheKey = __METHOD__ . $speciesId;
-		$results = Cache::get($cacheKey);
-		if (!$results) {
+		$results = Cache::get($cacheKey, function () use ($cacheKey, $speciesId) {
 			$results = DB::select('CALL proc_getSpecies2(?);', [$speciesId]);
 			Cache::forever($cacheKey, $results);
-		}
+			return $results;
+		});
 		return $results;
 	}
 
 	/**
 	 * List months for species
 	 * @access  public
-	 * @param  speciesId  int
-	 * @return Array
+	 * @param int $speciesId
+	 * @return array
 	 */
-	public static function monthsForSpecies($speciesId) {
+	public static function monthsForSpecies(int $speciesId): array {
 		$cacheKey = __METHOD__ . $speciesId;
-		$results = Cache::get($cacheKey);
-		if (!$results) {
+		$results = Cache::get($cacheKey, function () use ($cacheKey, $speciesId) {
 			$results = DB::select('CALL proc_listMonthsForSpecies2(?);', [$speciesId]);
 			Cache::forever($cacheKey, $results);
-		}
+			return $results;
+		});
 		return $results;
 	}
 
 	/**
 	 * List months for species
 	 * @access  public
-	 * @param  speciesId  int
-	 * @return Array
+	 * @param int $speciesId
+	 * @return array
 	 */
-	public static function sightingsByMonth($speciesId) {
+	public static function sightingsByMonth(int $speciesId): array {
 		$cacheKey = __METHOD__ . $speciesId;
-		$results = Cache::get($cacheKey);
-		if (!$results) {
+		$results = Cache::get($cacheKey, function () use ($cacheKey, $speciesId) {
 			$results = DB::select('CALL proc_listMonthsForSpecies(?);', [$speciesId]);
 			Cache::forever($cacheKey, $results);
-		}
+			return $results;
+		});
 		return $results;
 	}
 
 	/**
 	 * List species by order
 	 * @access  public
-	 * @return Array
+	 * @return array
 	 */
-	public static function speciesByOrder() {
-		$results = Cache::get(__METHOD__);
-		if (!$results) {
+	public static function speciesByOrder(): array {
+		$results = Cache::get(__METHOD__, function () {
 			$results = DB::select('CALL proc_listSpeciesByOrder();');
 			Cache::forever(__METHOD__, $results);
-		}
+			return $results;
+		});
 		return $results;
 	}
 
 	/**
 	 * List species for order
 	 * @access  public
-	 * @param  orderId    int
-	 * @return Array
+	 * @param int $orderId
+	 * @return array
 	 */
-	public static function speciesForOrder($orderId) {
+	public static function speciesForOrder(int $orderId): array {
 		$cacheKey = __METHOD__ . $orderId;
-		$results = Cache::get($cacheKey);
-		if (!$results) {
+		$results = Cache::get($cacheKey, function () use ($cacheKey, $orderId) {
 			$results = DB::select('CALL proc_listSpeciesForOrder(?);', [$orderId]);
 			Cache::forever($cacheKey, $results);
-		}
+			return $results;
+		});
 		return $results;
 	}
 
 	/**
 	 * List all species
 	 * @access  public
-	 * @return Array
+	 * @return array
 	 */
-	public static function speciesAll() {
-		$cacheKey = __METHOD__;
-		$results = Cache::get($cacheKey);
-		if (!$results) {
+	public static function speciesAll(): array {
+		$results = Cache::get(__METHOD__, function () {
 			$results = DB::select('CALL proc_listSpeciesAll();');
-			Cache::forever($cacheKey, $results);
-		}
+			Cache::forever(__METHOD__, $results);
+			return $results;
+		});
 		return $results;
 	}
 
 	/**
 	 * List orders
 	 * @access  public
-	 * @return Array
+	 * @return array
 	 */
-	public static function listOrders() {
-		$cacheKey = __METHOD__;
-		$results = Cache::get($cacheKey);
-		if (!$results) {
+	public static function listOrders(): array {
+		$results = Cache::get(__METHOD__, function () {
 			$results = DB::select('CALL proc_listOrders();');
-			Cache::forever($cacheKey, $results);
-		}
+			Cache::forever(__METHOD__, $results);
+			return $results;
+		});
 		return $results;
 	}
 
 	/**
 	 * List order ids
 	 * @access  public
-	 * @return Array
+	 * @return array
 	 */
-	public static function listOrderIds() {
-		$cacheKey = __METHOD__;
-		$results = Cache::get($cacheKey);
-		if (!$results) {
+	public static function listOrderIds(): array {
+		$results = Cache::get(__METHOD__, function () {
 			$results = DB::select('CALL proc_listOrderIds();');
-			Cache::forever($cacheKey, $results);
-		}
+			Cache::forever(__METHOD__, $results);
+			return $results;
+		});
 		return $results;
 	}
 
 	/**
 	 * List species ids
 	 * @access  public
-	 * @return Array
+	 * @return array
 	 */
-	public static function listSpeciesIds() {
-		$cacheKey = __METHOD__;
-		$results = Cache::get($cacheKey);
-		if (!$results) {
+	public static function listSpeciesIds(): array {
+		$results = Cache::get(__METHOD__, function () {
 			$results = DB::select('CALL proc_listSpeciesIds();');
-			Cache::forever($cacheKey, $results);
-		}
+			Cache::forever(__METHOD__, $results);
+			return $results;
+		});
 		return $results;
 	}
 
 	/**
 	 * List location ids
 	 * @access  public
-	 * @return Array
+	 * @return array
 	 */
 	public static function listLocationIds() {
-		$cacheKey = __METHOD__;
-		$results = Cache::get($cacheKey);
-		if (!$results) {
+		$results = Cache::get(__METHOD__, function () {
 			$results = DB::select('CALL proc_listLocationIds();');
-			Cache::forever($cacheKey, $results);
-		}
+			Cache::forever(__METHOD__, $results);
+			return $results;
+		});
 		return $results;
 	}
 
 	/**
 	 * List orders
 	 * @access  public
-	 * @return Array
+	 * @return array
 	 */
-	public static function listOrdersAll() {
-		$cacheKey = __METHOD__;
-		$results = Cache::get($cacheKey);
-		if (!$results) {
+	public static function listOrdersAll(): array {
+		$results = Cache::get(__METHOD__, function () {
 			$results = DB::select('CALL proc_listOrdersAll();');
-			Cache::forever($cacheKey, $results);
-		}
+			Cache::forever(__METHOD__, $results);
+			return $results;
+		});
 		return $results;
 	}
 
 	/**
 	 * search complete AOU list
 	 * @access  public
-	 * @param  searchString string
-	 * @param  orderId      int
-	 * @return Array
+	 * @param string $searchString
+	 * @param int $orderId
+	 * @return array
 	 */
-	public static function searchAll($searchString, $orderId) {
+	public static function searchAll(string $searchString, int $orderId): array {
 		$searchString = urldecode($searchString);
 		$cacheKey = __METHOD__ . $searchString . $orderId;
-		$results = Cache::get($cacheKey);
-		if (!$results) {
+		$results = Cache::get($cacheKey, function () use ($cacheKey, $searchString, $orderId) {
 			$results = DB::select('CALL proc_searchAll(?,?);', [$searchString, $orderId]);
 			Cache::forever($cacheKey, $results);
-		}
+			return $results;
+		});
 		return $results;
 	}
 
 	/**
 	 * List species and trips by location
 	 * @access  public
-	 * @return Array
+	 * @return array
 	 */
-	public static function speciesByLocation() {
-		$results = Cache::get(__METHOD__);
-		if (!$results) {
+	public static function speciesByLocation(): array {
+		$results = Cache::get(__METHOD__, function () {
 			$results = DB::select('CALL proc_listLocations2();');
 			Cache::forever(__METHOD__, $results);
-		}
+			return $results;
+		});
 		return $results;
 	}
 
 	/**
 	 * List species and trips by county
 	 * @access  public
-	 * @return Array
+	 * @return array
 	 */
-	public static function speciesByCounty() {
-		$results = Cache::get(__METHOD__);
-		if (!$results) {
+	public static function speciesByCounty(): array {
+		$results = Cache::get(__METHOD__, function () {
 			$results = DB::select('CALL proc_listSpeciesByCounty();');
 			Cache::forever(__METHOD__, $results);
-		}
+			return $results;
+		});
 		return $results;
 	}
 
 	/**
 	 * List species by month for ducks and warblers
 	 * @access  public
-	 * @return Array
+	 * @return array
 	 */
-	public static function twoSpeciesByMonth() {
-		$results = Cache::get(__METHOD__);
-		if (!$results) {
+	public static function twoSpeciesByMonth(): array {
+		$results = Cache::get(__METHOD__, function () {
 			$results = DB::select('CALL proc_listTwoSpeciesByMonth();');
 			Cache::forever(__METHOD__, $results);
-		}
+			return $results;
+		});
 		return $results;
 	}
 
 	/**
 	 * Monthly average and record temperatures
 	 * @access  public
-	 * @return Array
+	 * @return array
 	 */
-	public static function monthlyTemps() {
-		$results = Cache::get(__METHOD__);
-		if (!$results) {
+	public static function monthlyTemps(): array {
+		$results = Cache::get(__METHOD__, function () {
 			$results = DB::select('CALL proc_listMonthlyAverages();');
 			Cache::forever(__METHOD__, $results);
-		}
+			return $results;
+		});
 		return $results;
 	}
 
 	/**
 	 * List species for location
 	 * @access  public
-	 * @param  locationId int
-	 * @return Array
+	 * @param int $locationId
+	 * @return array
 	 */
-	public static function speciesForLocation($locationId) {
+	public static function speciesForLocation(int $locationId): array {
 		$cacheKey = __METHOD__ . $locationId;
-		$results = Cache::get($cacheKey);
-		if (!$results) {
+		$results = Cache::get($cacheKey, function () use ($cacheKey, $locationId) {
 			$results = DB::select('CALL proc_listSightingsForLocation2(?);', [$locationId]);
 			Cache::forever($cacheKey, $results);
-		}
+			return $results;
+		});
 		return $results;
 	}
 
 	/**
 	 * Location detail
 	 * @access  public
-	 * @param  locationId int
-	 * @return Array
+	 * @param int $locationId
+	 * @return array
 	 */
-	public static function locationDetail($locationId) {
+	public static function locationDetail(int $locationId): array {
 		$cacheKey = __METHOD__ . $locationId;
-		$results = Cache::get($cacheKey);
-		if (!$results) {
+		$results = Cache::get($cacheKey, function () use ($cacheKey, $locationId) {
 			$results = DB::select('CALL proc_getLocation2(?);', [$locationId]);
 			Cache::forever($cacheKey, $results);
-		}
+			return $results;
+		});
 		return $results;
 	}
 
