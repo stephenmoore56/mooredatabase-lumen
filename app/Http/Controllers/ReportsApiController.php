@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace App\Http\Controllers;
 
@@ -27,12 +27,13 @@ class ReportsApiController extends Controller {
 	/**
 	 * Clear memcached; mainly for testing
 	 * @access  public
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
 	 */
 	public static function clearCache() {
 		try {
 			Mapper::clearCache();
-			return response()->json(['data' => ['message' => 'Cache flushed.']], Response::HTTP_OK, []);
+			$results = ['message' => 'Cache flushed.'];
+			return self::formatNormalResponse(Response::HTTP_OK, $results);
 		} catch (Exception $e) {
 			return self::formatErrorResponse(Response::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());
 		}
@@ -41,7 +42,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * List species and trips by month
 	 * @access  public
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
 	 */
 	public static function speciesByMonth() {
 		try {
@@ -55,7 +56,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * List species and trips by year
 	 * @access  public
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
 	 */
 	public static function speciesByYear() {
 		try {
@@ -70,7 +71,7 @@ class ReportsApiController extends Controller {
 	 * List species for month
 	 * @access  public
 	 * @param int $monthNumber
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
 	 */
 	public static function speciesForMonth(int $monthNumber) {
 		try {
@@ -91,7 +92,7 @@ class ReportsApiController extends Controller {
 	 * List species for year
 	 * @access  public
 	 * @param int $year
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
 	 */
 	public static function speciesForYear(int $year) {
 		try {
@@ -110,7 +111,7 @@ class ReportsApiController extends Controller {
 	 * Species detail
 	 * @access  public
 	 * @param int $speciesId
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
 	 */
 	public static function speciesDetail(int $speciesId) {
 		try {
@@ -128,7 +129,7 @@ class ReportsApiController extends Controller {
 	 * List months for species
 	 * @access  public
 	 * @param int $speciesId
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
 	 */
 	public static function monthsForSpecies(int $speciesId) {
 		try {
@@ -146,7 +147,7 @@ class ReportsApiController extends Controller {
 	 * List months for species
 	 * @access  public
 	 * @param int $speciesId
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
 	 */
 	public static function sightingsByMonth(int $speciesId) {
 		try {
@@ -163,7 +164,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * List species by order
 	 * @access  public
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
 	 */
 	public static function speciesByOrder() {
 		try {
@@ -178,7 +179,7 @@ class ReportsApiController extends Controller {
 	 * List species for order
 	 * @access  public
 	 * @param int $orderId
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
 	 */
 	public static function speciesForOrder(int $orderId) {
 		try {
@@ -195,7 +196,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * List all species
 	 * @access  public
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
 	 */
 	public static function speciesAll() {
 		try {
@@ -209,7 +210,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * List orders
 	 * @access  public
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
 	 */
 	public static function listOrders() {
 		try {
@@ -223,7 +224,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * List order ids
 	 * @access  public
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
 	 */
 	public static function listOrderIds() {
 		try {
@@ -237,7 +238,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * List species ids
 	 * @access  public
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
 	 */
 	public static function listSpeciesIds() {
 		try {
@@ -251,7 +252,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * List location ids
 	 * @access  public
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
 	 */
 	public static function listLocationIds() {
 		try {
@@ -265,7 +266,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * List orders
 	 * @access  public
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
 	 */
 	public static function listOrdersAll() {
 		try {
@@ -281,7 +282,7 @@ class ReportsApiController extends Controller {
 	 * @access  public
 	 * @param string $searchString
 	 * @param int $orderId
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
 	 */
 	public static function searchAll(string $searchString, int $orderId) {
 		try {
@@ -295,7 +296,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * List species and trips by location
 	 * @access  public
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
 	 */
 	public static function speciesByLocation() {
 		try {
@@ -309,7 +310,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * List species and trips by county
 	 * @access  public
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
 	 */
 	public static function speciesByCounty() {
 		try {
@@ -323,7 +324,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * List species by month for ducks and warblers
 	 * @access  public
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
 	 */
 	public static function twoSpeciesByMonth() {
 		try {
@@ -337,7 +338,7 @@ class ReportsApiController extends Controller {
 	/**
 	 * Monthly average and record temperatures
 	 * @access  public
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
 	 */
 	public static function monthlyTemps() {
 		try {
@@ -352,7 +353,7 @@ class ReportsApiController extends Controller {
 	 * List species for location
 	 * @access  public
 	 * @param int $locationId
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
 	 */
 	public static function speciesForLocation(int $locationId) {
 		try {
@@ -370,7 +371,7 @@ class ReportsApiController extends Controller {
 	 * Location detail
 	 * @access  public
 	 * @param int $locationId
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory
+	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
 	 */
 	public static function locationDetail(int $locationId) {
 		try {

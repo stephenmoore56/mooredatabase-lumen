@@ -23,6 +23,11 @@ class Controller extends BaseController {
 	 * @param int $status
 	 * @param array $results
 	 */
+	/**
+	 * @param int $status
+	 * @param array $results
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
 	protected static function formatNormalResponse(int $status, array $results) {
 		return response()->json(['data' => $results], $status, [], JSON_NUMERIC_CHECK);
 	}
