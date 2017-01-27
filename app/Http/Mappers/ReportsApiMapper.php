@@ -35,15 +35,7 @@ class ReportsApiMapper {
 	 * @return array
 	 */
 	public static function speciesByMonth(): array {
-		/** @noinspection PhpUndefinedMethodInspection */
-		$results = Cache::get(__METHOD__, function () {
-			/** @noinspection PhpUndefinedMethodInspection */
-			$results = DB::select('CALL proc_listSpeciesByMonth();');
-			/** @noinspection PhpUndefinedMethodInspection */
-			Cache::forever(__METHOD__, $results);
-			return $results;
-		});
-		return $results;
+		return self::executeProcedure(__METHOD__, 'CALL proc_listSpeciesByMonth();');
 	}
 
 	/**
@@ -52,15 +44,7 @@ class ReportsApiMapper {
 	 * @return array
 	 */
 	public static function speciesByYear(): array {
-		/** @noinspection PhpUndefinedMethodInspection */
-		$results = Cache::get(__METHOD__, function () {
-			/** @noinspection PhpUndefinedMethodInspection */
-			$results = DB::select('CALL proc_listSpeciesByYear();');
-			/** @noinspection PhpUndefinedMethodInspection */
-			Cache::forever(__METHOD__, $results);
-			return $results;
-		});
-		return $results;
+		return self::executeProcedure(__METHOD__, 'CALL proc_listSpeciesByYear();');
 	}
 
 	/**
@@ -70,16 +54,7 @@ class ReportsApiMapper {
 	 * @return array
 	 */
 	public static function speciesForMonth(int $monthNumber): array {
-		$cacheKey = __METHOD__ . $monthNumber;
-		/** @noinspection PhpUndefinedMethodInspection */
-		$results = Cache::get($cacheKey, function () use ($cacheKey, $monthNumber) {
-			/** @noinspection PhpUndefinedMethodInspection */
-			$results = DB::select('CALL proc_listSpeciesForMonth(?);', [$monthNumber]);
-			/** @noinspection PhpUndefinedMethodInspection */
-			Cache::forever($cacheKey, $results);
-			return $results;
-		});
-		return $results;
+		return self::executeProcedure(__METHOD__, 'CALL proc_listSpeciesForMonth(?);', [$monthNumber]);
 	}
 
 	/**
@@ -89,16 +64,7 @@ class ReportsApiMapper {
 	 * @return array
 	 */
 	public static function speciesForYear(int $year): array {
-		$cacheKey = __METHOD__ . $year;
-		/** @noinspection PhpUndefinedMethodInspection */
-		$results = Cache::get($cacheKey, function () use ($cacheKey, $year) {
-			/** @noinspection PhpUndefinedMethodInspection */
-			$results = DB::select('CALL proc_listSpeciesForYear(?);', [$year]);
-			/** @noinspection PhpUndefinedMethodInspection */
-			Cache::forever($cacheKey, $results);
-			return $results;
-		});
-		return $results;
+		return self::executeProcedure(__METHOD__, 'CALL proc_listSpeciesForYear(?);', [$year]);
 	}
 
 	/**
@@ -108,16 +74,7 @@ class ReportsApiMapper {
 	 * @return array
 	 */
 	public static function speciesDetail(int $speciesId): array {
-		$cacheKey = __METHOD__ . $speciesId;
-		/** @noinspection PhpUndefinedMethodInspection */
-		$results = Cache::get($cacheKey, function () use ($cacheKey, $speciesId) {
-			/** @noinspection PhpUndefinedMethodInspection */
-			$results = DB::select('CALL proc_getSpecies2(?);', [$speciesId]);
-			/** @noinspection PhpUndefinedMethodInspection */
-			Cache::forever($cacheKey, $results);
-			return $results;
-		});
-		return $results;
+		return self::executeProcedure(__METHOD__, 'CALL proc_getSpecies2(?);', [$speciesId]);
 	}
 
 	/**
@@ -127,16 +84,7 @@ class ReportsApiMapper {
 	 * @return array
 	 */
 	public static function monthsForSpecies(int $speciesId): array {
-		$cacheKey = __METHOD__ . $speciesId;
-		/** @noinspection PhpUndefinedMethodInspection */
-		$results = Cache::get($cacheKey, function () use ($cacheKey, $speciesId) {
-			/** @noinspection PhpUndefinedMethodInspection */
-			$results = DB::select('CALL proc_listMonthsForSpecies2(?);', [$speciesId]);
-			/** @noinspection PhpUndefinedMethodInspection */
-			Cache::forever($cacheKey, $results);
-			return $results;
-		});
-		return $results;
+		return self::executeProcedure(__METHOD__, 'CALL proc_listMonthsForSpecies2(?);', [$speciesId]);
 	}
 
 	/**
@@ -146,16 +94,7 @@ class ReportsApiMapper {
 	 * @return array
 	 */
 	public static function sightingsByMonth(int $speciesId): array {
-		$cacheKey = __METHOD__ . $speciesId;
-		/** @noinspection PhpUndefinedMethodInspection */
-		$results = Cache::get($cacheKey, function () use ($cacheKey, $speciesId) {
-			/** @noinspection PhpUndefinedMethodInspection */
-			$results = DB::select('CALL proc_listMonthsForSpecies(?);', [$speciesId]);
-			/** @noinspection PhpUndefinedMethodInspection */
-			Cache::forever($cacheKey, $results);
-			return $results;
-		});
-		return $results;
+		return self::executeProcedure(__METHOD__, 'CALL proc_listMonthsForSpecies(?);', [$speciesId]);
 	}
 
 	/**
@@ -164,15 +103,7 @@ class ReportsApiMapper {
 	 * @return array
 	 */
 	public static function speciesByOrder(): array {
-		/** @noinspection PhpUndefinedMethodInspection */
-		$results = Cache::get(__METHOD__, function () {
-			/** @noinspection PhpUndefinedMethodInspection */
-			$results = DB::select('CALL proc_listSpeciesByOrder();');
-			/** @noinspection PhpUndefinedMethodInspection */
-			Cache::forever(__METHOD__, $results);
-			return $results;
-		});
-		return $results;
+		return self::executeProcedure(__METHOD__, 'CALL proc_listSpeciesByOrder();');
 	}
 
 	/**
@@ -182,16 +113,7 @@ class ReportsApiMapper {
 	 * @return array
 	 */
 	public static function speciesForOrder(int $orderId): array {
-		$cacheKey = __METHOD__ . $orderId;
-		/** @noinspection PhpUndefinedMethodInspection */
-		$results = Cache::get($cacheKey, function () use ($cacheKey, $orderId) {
-			/** @noinspection PhpUndefinedMethodInspection */
-			$results = DB::select('CALL proc_listSpeciesForOrder(?);', [$orderId]);
-			/** @noinspection PhpUndefinedMethodInspection */
-			Cache::forever($cacheKey, $results);
-			return $results;
-		});
-		return $results;
+		return self::executeProcedure(__METHOD__, 'CALL proc_listSpeciesForOrder(?);', [$orderId]);
 	}
 
 	/**
@@ -200,15 +122,7 @@ class ReportsApiMapper {
 	 * @return array
 	 */
 	public static function speciesAll(): array {
-		/** @noinspection PhpUndefinedMethodInspection */
-		$results = Cache::get(__METHOD__, function () {
-			/** @noinspection PhpUndefinedMethodInspection */
-			$results = DB::select('CALL proc_listSpeciesAll();');
-			/** @noinspection PhpUndefinedMethodInspection */
-			Cache::forever(__METHOD__, $results);
-			return $results;
-		});
-		return $results;
+		return self::executeProcedure(__METHOD__, 'CALL proc_listSpeciesAll();');
 	}
 
 	/**
@@ -217,15 +131,7 @@ class ReportsApiMapper {
 	 * @return array
 	 */
 	public static function listOrders(): array {
-		/** @noinspection PhpUndefinedMethodInspection */
-		$results = Cache::get(__METHOD__, function () {
-			/** @noinspection PhpUndefinedMethodInspection */
-			$results = DB::select('CALL proc_listOrders();');
-			/** @noinspection PhpUndefinedMethodInspection */
-			Cache::forever(__METHOD__, $results);
-			return $results;
-		});
-		return $results;
+		return self::executeProcedure(__METHOD__, 'CALL proc_listOrders();');
 	}
 
 	/**
@@ -234,15 +140,7 @@ class ReportsApiMapper {
 	 * @return array
 	 */
 	public static function listOrderIds(): array {
-		/** @noinspection PhpUndefinedMethodInspection */
-		$results = Cache::get(__METHOD__, function () {
-			/** @noinspection PhpUndefinedMethodInspection */
-			$results = DB::select('CALL proc_listOrderIds();');
-			/** @noinspection PhpUndefinedMethodInspection */
-			Cache::forever(__METHOD__, $results);
-			return $results;
-		});
-		return $results;
+		return self::executeProcedure(__METHOD__, 'CALL proc_listOrderIds();');
 	}
 
 	/**
@@ -251,15 +149,7 @@ class ReportsApiMapper {
 	 * @return array
 	 */
 	public static function listSpeciesIds(): array {
-		/** @noinspection PhpUndefinedMethodInspection */
-		$results = Cache::get(__METHOD__, function () {
-			/** @noinspection PhpUndefinedMethodInspection */
-			$results = DB::select('CALL proc_listSpeciesIds();');
-			/** @noinspection PhpUndefinedMethodInspection */
-			Cache::forever(__METHOD__, $results);
-			return $results;
-		});
-		return $results;
+		return self::executeProcedure(__METHOD__, 'CALL proc_listSpeciesIds();');
 	}
 
 	/**
@@ -268,15 +158,7 @@ class ReportsApiMapper {
 	 * @return array
 	 */
 	public static function listLocationIds(): array {
-		/** @noinspection PhpUndefinedMethodInspection */
-		$results = Cache::get(__METHOD__, function () {
-			/** @noinspection PhpUndefinedMethodInspection */
-			$results = DB::select('CALL proc_listLocationIds();');
-			/** @noinspection PhpUndefinedMethodInspection */
-			Cache::forever(__METHOD__, $results);
-			return $results;
-		});
-		return $results;
+		return self::executeProcedure(__METHOD__, 'CALL proc_listLocationIds();');
 	}
 
 	/**
@@ -285,15 +167,7 @@ class ReportsApiMapper {
 	 * @return array
 	 */
 	public static function listOrdersAll(): array {
-		/** @noinspection PhpUndefinedMethodInspection */
-		$results = Cache::get(__METHOD__, function () {
-			/** @noinspection PhpUndefinedMethodInspection */
-			$results = DB::select('CALL proc_listOrdersAll();');
-			/** @noinspection PhpUndefinedMethodInspection */
-			Cache::forever(__METHOD__, $results);
-			return $results;
-		});
-		return $results;
+		return self::executeProcedure(__METHOD__, 'CALL proc_listOrdersAll();');
 	}
 
 	/**
@@ -305,16 +179,7 @@ class ReportsApiMapper {
 	 */
 	public static function searchAll(string $searchString, int $orderId): array {
 		$searchString = urldecode($searchString);
-		$cacheKey = __METHOD__ . $searchString . $orderId;
-		/** @noinspection PhpUndefinedMethodInspection */
-		$results = Cache::get($cacheKey, function () use ($cacheKey, $searchString, $orderId) {
-			/** @noinspection PhpUndefinedMethodInspection */
-			$results = DB::select('CALL proc_searchAll(?,?);', [$searchString, $orderId]);
-			/** @noinspection PhpUndefinedMethodInspection */
-			Cache::forever($cacheKey, $results);
-			return $results;
-		});
-		return $results;
+		return self::executeProcedure(__METHOD__, 'CALL proc_searchAll(?,?);', [$searchString, $orderId]);
 	}
 
 	/**
@@ -323,15 +188,7 @@ class ReportsApiMapper {
 	 * @return array
 	 */
 	public static function speciesByLocation(): array {
-		/** @noinspection PhpUndefinedMethodInspection */
-		$results = Cache::get(__METHOD__, function () {
-			/** @noinspection PhpUndefinedMethodInspection */
-			$results = DB::select('CALL proc_listLocations2();');
-			/** @noinspection PhpUndefinedMethodInspection */
-			Cache::forever(__METHOD__, $results);
-			return $results;
-		});
-		return $results;
+		return self::executeProcedure(__METHOD__, 'CALL proc_listLocations2();');
 	}
 
 	/**
@@ -340,15 +197,7 @@ class ReportsApiMapper {
 	 * @return array
 	 */
 	public static function speciesByCounty(): array {
-		/** @noinspection PhpUndefinedMethodInspection */
-		$results = Cache::get(__METHOD__, function () {
-			/** @noinspection PhpUndefinedMethodInspection */
-			$results = DB::select('CALL proc_listSpeciesByCounty();');
-			/** @noinspection PhpUndefinedMethodInspection */
-			Cache::forever(__METHOD__, $results);
-			return $results;
-		});
-		return $results;
+		return self::executeProcedure(__METHOD__, 'CALL proc_listSpeciesByCounty();');
 	}
 
 	/**
@@ -357,15 +206,7 @@ class ReportsApiMapper {
 	 * @return array
 	 */
 	public static function twoSpeciesByMonth(): array {
-		/** @noinspection PhpUndefinedMethodInspection */
-		$results = Cache::get(__METHOD__, function () {
-			/** @noinspection PhpUndefinedMethodInspection */
-			$results = DB::select('CALL proc_listTwoSpeciesByMonth();');
-			/** @noinspection PhpUndefinedMethodInspection */
-			Cache::forever(__METHOD__, $results);
-			return $results;
-		});
-		return $results;
+		return self::executeProcedure(__METHOD__, 'CALL proc_listTwoSpeciesByMonth();');
 	}
 
 	/**
@@ -374,15 +215,7 @@ class ReportsApiMapper {
 	 * @return array
 	 */
 	public static function monthlyTemps(): array {
-		/** @noinspection PhpUndefinedMethodInspection */
-		$results = Cache::get(__METHOD__, function () {
-			/** @noinspection PhpUndefinedMethodInspection */
-			$results = DB::select('CALL proc_listMonthlyAverages();');
-			/** @noinspection PhpUndefinedMethodInspection */
-			Cache::forever(__METHOD__, $results);
-			return $results;
-		});
-		return $results;
+		return self::executeProcedure(__METHOD__, 'CALL proc_listMonthlyAverages();');
 	}
 
 	/**
@@ -392,16 +225,7 @@ class ReportsApiMapper {
 	 * @return array
 	 */
 	public static function speciesForLocation(int $locationId): array {
-		$cacheKey = __METHOD__ . $locationId;
-		/** @noinspection PhpUndefinedMethodInspection */
-		$results = Cache::get($cacheKey, function () use ($cacheKey, $locationId) {
-			/** @noinspection PhpUndefinedMethodInspection */
-			$results = DB::select('CALL proc_listSightingsForLocation2(?);', [$locationId]);
-			/** @noinspection PhpUndefinedMethodInspection */
-			Cache::forever($cacheKey, $results);
-			return $results;
-		});
-		return $results;
+		return self::executeProcedure(__METHOD__, 'CALL proc_listSightingsForLocation2(?);', [$locationId]);
 	}
 
 	/**
@@ -411,11 +235,21 @@ class ReportsApiMapper {
 	 * @return array
 	 */
 	public static function locationDetail(int $locationId): array {
-		$cacheKey = __METHOD__ . $locationId;
+		return self::executeProcedure(__METHOD__, 'CALL proc_getLocation2(?);', [$locationId]);
+	}
+
+	/**
+	 * @param string $method
+	 * @param string $callStatement
+	 * @param array $params
+	 * @return array
+	 */
+	private static function executeProcedure(string $method, string $callStatement, array $params = []): array {
+		$cacheKey = $method . serialize($params);
 		/** @noinspection PhpUndefinedMethodInspection */
-		$results = Cache::get($cacheKey, function () use ($cacheKey, $locationId) {
+		$results = Cache::get($cacheKey, function () use ($cacheKey, $callStatement, $params) {
 			/** @noinspection PhpUndefinedMethodInspection */
-			$results = DB::select('CALL proc_getLocation2(?);', [$locationId]);
+			$results = DB::select($callStatement, $params);
 			/** @noinspection PhpUndefinedMethodInspection */
 			Cache::forever($cacheKey, $results);
 			return $results;

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace App\Http\Controllers;
 
@@ -11,7 +11,7 @@ class Controller extends BaseController {
 	 * Format errors response
 	 * @param int $status
 	 * @param string $title
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory
+	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	protected static function formatErrorResponse(int $status, string $title) {
 		return response()->json(['errors' => ['status' => (string)$status, 'title' => $title]], $status);
@@ -19,11 +19,6 @@ class Controller extends BaseController {
 
 	/**
 	 * Format normal data response
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory
-	 * @param int $status
-	 * @param array $results
-	 */
-	/**
 	 * @param int $status
 	 * @param array $results
 	 * @return \Symfony\Component\HttpFoundation\Response
